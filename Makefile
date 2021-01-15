@@ -1,7 +1,12 @@
 DIST_NAME = window
 
 SCRIPT_FILES = \
-	src/$(DIST_NAME).ts
+	src/$(DIST_NAME).ts \
+	src/GraphicsWindow.ts \
+	src/Component.ts \
+	src/ImageWindow.ts \
+	src/LayoutList.ts \
+	src/ProxyComponent.ts
 
 all: build lint test coverage esdoc
 

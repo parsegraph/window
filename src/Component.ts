@@ -1,10 +1,10 @@
-import Window from './window';
+import GraphicsWindow from './GraphicsWindow';
 
 let componentCount = 0;
 export default abstract class Component {
   _id:number;
   _peerType:string;
-  _window:Window;
+  _window:GraphicsWindow;
   _needsUpdate:boolean;
   constructor(peerType:string) {
     this._id = ++componentCount;
@@ -34,7 +34,7 @@ export default abstract class Component {
   hasEventHandler():boolean {
     return false;
   }
-  handleEvent(...args:any[]):boolean {
+  handleEvent(..._:any[]):boolean {
     throw new Error("This component does not handle events");
   }
 
@@ -42,7 +42,7 @@ export default abstract class Component {
     return this._needsUpdate;
   };
 
-  setOwner(window:Window) {
+  setOwner(window:GraphicsWindow) {
     if (this._window === window) {
       return;
     }
