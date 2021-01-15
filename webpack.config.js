@@ -6,7 +6,7 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "window.js",
     globalObject: "this",
-    library: "window",
+    library: "Window",
     libraryTarget: "umd",
   },
   module: {
