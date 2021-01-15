@@ -1,4 +1,4 @@
-DIST_NAME = TODO-PACKAGE-NAME
+DIST_NAME = window
 
 SCRIPT_FILES = \
 	src/$(DIST_NAME).ts
