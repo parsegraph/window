@@ -35,7 +35,6 @@ export {
   INTERVAL,
   IDLE_MARGIN,
   Color,
-  Method,
 }
 
 export default GraphicsWindow;
