@@ -5,6 +5,7 @@ import GraphicsWindow, {CLICK_DELAY_MILLIS, MAX_TEXTURE_SIZE, BACKGROUND_COLOR, 
 
 import ProxyComponent from './ProxyComponent';
 import ImageWindow from './ImageWindow';
+import TimingBelt from './TimingBelt';
 
 export {
   LayoutList,
@@ -19,7 +20,8 @@ export {
   BACKGROUND_COLOR,
   TouchRecord,
   ProxyComponent,
-  ImageWindow
+  ImageWindow,
+  TimingBelt,
 }
 
 export default GraphicsWindow;
