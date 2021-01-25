@@ -24,7 +24,7 @@ jobs:
     - run: make
     - run: |
         mkdir parsegraph-window
-        cp -r -t parsegraph-window package.json package-lock.json README.md demo/ LICENSE dist/
+        cp -r -t parsegraph-window package.json package-lock.json README.md demo/ LICENSE dist/ www/
         tar cvzf parsegraph-window.tar.gz parsegraph-window/
     - uses: actions/upload-artifact@v2
       with:

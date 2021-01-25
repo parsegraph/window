@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="window.js"></script>
+	</head>
+	<body>
+    <p>
+      You should see a window beneath that is a random solid color.
+    </p>
+	<script>
+    let WINDOW = null;
+    (function() {
+      const belt = new parsegraph.TimingBelt();
+      const window = new parsegraph.GraphicsWindow();
+      document.body.appendChild(window.container());
+      belt.addWindow(window);
+      window.setExplicitSize(500, 500);
+      window.setBackground(new parsegraph.Color(Math.random(), Math.random(), Math.random(), 1));
+      WINDOW = window;
+    })();
+	</script>
+	</body>
+</html>
