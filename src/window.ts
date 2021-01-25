@@ -6,6 +6,7 @@ import GraphicsWindow, {CLICK_DELAY_MILLIS, MAX_TEXTURE_SIZE, BACKGROUND_COLOR, 
 import ProxyComponent from './ProxyComponent';
 import ImageWindow from './ImageWindow';
 import TimingBelt from './TimingBelt';
+import Color from 'parsegraph-color';
 
 export {
   LayoutList,
@@ -22,6 +23,7 @@ export {
   ProxyComponent,
   ImageWindow,
   TimingBelt,
+  Color,
 }
 
 export default GraphicsWindow;
