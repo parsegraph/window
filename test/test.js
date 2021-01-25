@@ -1,5 +1,5 @@
 var assert = require("assert");
-import Window from "../dist/window";
+import Window from "../dist/parsegraph-window";
 
 describe("Package", function () {
   it("works", ()=>{
