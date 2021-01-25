@@ -162,6 +162,11 @@ export default class GraphicsWindow extends BasicGLProvider {
     });
   }
 
+  setBackground(bg:Color) {
+    super.setBackground(bg);
+    this.scheduleUpdate();
+  }
+
   getTextureSize():number {
     return Math.min(MAX_TEXTURE_SIZE, this.gl().getParameter(this.gl().MAX_TEXTURE_SIZE));
   }
