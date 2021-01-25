@@ -4,9 +4,9 @@ module.exports = {
   entry: path.resolve(__dirname, "src/window.ts"),
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "window.js",
+    filename: "parsegraph-window.js",
     globalObject: "this",
-    library: "Window",
+    library: "parsegraph",
     libraryTarget: "umd",
   },
   module: {
