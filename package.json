@@ -81,6 +81,7 @@
     "parsegraph-rect": "^1.4.4",
     "parsegraph-testsuite": "^1.4.3",
     "parsegraph-timing": "^1.4.5",
+    "parsegraph-method": "^1.4.7",
     "raw-loader": "^4.0.1",
     "ts-mocha": "^8.0.0",
     "webgl-mock": "^0.1.7"
