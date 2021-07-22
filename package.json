@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-window",
-  "version": "1.6.0-dev",
+  "version": "1.6.1-dev",
   "description": "window",
   "main": "dist/parsegraph-window.js",
   "types": "dist/parsegraph-window.d.ts",
@@ -75,7 +75,7 @@
     "glslify-loader": "^2.0.0",
     "openssl": "^1.1.0",
     "parsegraph-color": "^1.4.3",
-    "parsegraph-compileprogram": "^2.0.5",
+    "parsegraph-compileprogram": "^2.0.6",
     "parsegraph-matrix": "^1.4.7",
     "parsegraph-normalizewheel": "^1.4.3",
     "parsegraph-rect": "^1.4.4",
