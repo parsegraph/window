@@ -1,6 +1,6 @@
 {
     "name": "parsegraph-window",
-    "version": "1.6.1",
+    "version": "1.6.2",
     "description": "window",
     "main": "dist/parsegraph-window.js",
     "types": "dist/parsegraph-window.d.ts",
@@ -16,11 +16,11 @@
     "homepage": "https://github.com/parsegraph/window#readme",
     "dependencies": {
       "parsegraph-color": "^1.4.3",
-      "parsegraph-compileprogram": "^2.0.6",
+      "parsegraph-compileprogram": "^2.0.7",
       "parsegraph-matrix": "^1.4.7",
       "parsegraph-normalizewheel": "^1.4.3",
       "parsegraph-rect": "^1.4.4",
-      "parsegraph-timing": "^1.4.5",
+      "parsegraph-timing": "^1.4.6",
       "parsegraph-method": "^1.4.7"
     }
   }
