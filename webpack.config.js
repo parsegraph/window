@@ -1,6 +1,14 @@
 const path = require("path");
 
 module.exports = {
+  externals: {
+    "parsegraph-checkglerror":{
+      commonjs:"parsegraph-checkglerror",
+      commonjs2:"parsegraph-checkglerror",
+      amd:"parsegraph-checkglerror",
+      root:"parsegraph"
+    }
+  },
   entry: path.resolve(__dirname, "src/window.ts"),
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -25,7 +33,10 @@ module.exports = {
   },
   resolve: {
     extensions: [".js", ".ts", ".tsx", ".glsl"],
-    modules: [path.resolve(__dirname, "src"), "node_modules"],
+    modules: [
+      path.resolve(__dirname, "src"),
+      path.resolve(__dirname, "node_modules"),
+    ]
   },
   mode: "development",
   devtool: "eval-source-map",

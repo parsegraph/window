@@ -1,6 +1,14 @@
 const path = require("path");
 
 module.exports = {
+  externals: {
+    "parsegraph-checkglerror":{
+      commonjs:"parsegraph-checkglerror",
+      commonjs2:"parsegraph-checkglerror",
+      amd:"parsegraph-checkglerror",
+      root:"parsegraph"
+    }
+  },
   entry: path.resolve(__dirname, "src/window.ts"),
   output: {
     path: path.resolve(__dirname, "dist-prod"),
