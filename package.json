@@ -85,5 +85,8 @@
     "raw-loader": "^4.0.1",
     "ts-mocha": "^8.0.0",
     "webgl-mock": "^0.1.7"
+  },
+  "peerDependencies": {
+    "parsegraph-checkglerror": "^1.4.8"
   }
 }
