@@ -1269,8 +1269,8 @@ export default class GraphicsWindow extends BasicGLProvider {
   };
 
   render() {
-    this._overlayCanvas.width = top.window.innerWidth;
-    this._overlayCanvas.height = top.window.innerHeight;
+    this._overlayCanvas.width = this.width();
+    this._overlayCanvas.height = this.height();
     this._overlayCtx.clearRect(
         0,
         0,
