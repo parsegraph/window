@@ -1251,13 +1251,14 @@ export default class GraphicsWindow extends BasicGLProvider {
       );
       this._overlayCtx.resetTransform();
       this._overlayCtx.save();
+      const height = this._overlayCanvas.height;
       this._overlayCtx.beginPath();
-      this._overlayCtx.moveTo(compSize.x(), compSize.y());
-      this._overlayCtx.lineTo(compSize.x()+compSize.width(), compSize.y());
-      this._overlayCtx.lineTo(compSize.x()+compSize.width(), compSize.y()+compSize.height());
-      this._overlayCtx.lineTo(compSize.x(), compSize.y()+compSize.height());
+      this._overlayCtx.moveTo(compSize.x(), height - compSize.y());
+      this._overlayCtx.lineTo(compSize.x()+compSize.width(), height - compSize.y());
+      this._overlayCtx.lineTo(compSize.x()+compSize.width(), height - (compSize.y()+compSize.height()));
+      this._overlayCtx.lineTo(compSize.x(), height - (compSize.y()+compSize.height()));
       this._overlayCtx.clip();
-      this._overlayCtx.translate(compSize.x(), compSize.y());
+      this._overlayCtx.translate(compSize.x(), height - compSize.y() - compSize.height());
       needsUpdate =
         comp.render(compSize.width(), compSize.height()) || needsUpdate;
       this._overlayCtx.restore();
