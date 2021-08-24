@@ -133,6 +133,8 @@ export default class GraphicsWindow extends BasicGLProvider {
     this._isDoubleClick = false;
     this._mouseupTimeout = 0;
 
+    this._componentContainers = new Map();
+
     this.canvas().addEventListener('touchstart', (event)=>{
       return this.touchstartListener(event);
     }, true);
