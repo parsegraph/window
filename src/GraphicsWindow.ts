@@ -656,6 +656,7 @@ export default class GraphicsWindow extends BasicGLProvider {
   addHorizontal(comp:Component, other:Component) {
     comp.setOwner(this);
     this.scheduleUpdate();
+    this.createComponentContainer(comp);
     if (!other) {
       this._layoutList.addHorizontal(comp);
       return;
@@ -665,7 +666,6 @@ export default class GraphicsWindow extends BasicGLProvider {
       throw new Error('Window must contain the given reference component');
     }
     container.addHorizontal(comp);
-    this.createComponentContainer(comp);
   };
 
   createComponentContainer(comp:Component) {
@@ -681,6 +681,7 @@ export default class GraphicsWindow extends BasicGLProvider {
   addVertical(comp:Component, other:Component) {
     comp.setOwner(this);
     this.scheduleUpdate();
+    this.createComponentContainer(comp);
     if (!other) {
       this._layoutList.addVertical(comp);
       return;
@@ -690,7 +691,6 @@ export default class GraphicsWindow extends BasicGLProvider {
       throw new Error('Window must contain the given reference component');
     }
     container.addVertical(comp);
-    this.createComponentContainer(comp);
   };
 
   removeComponent(compToRemove:Component) {
