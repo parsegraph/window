@@ -1282,9 +1282,9 @@ export default class GraphicsWindow extends BasicGLProvider {
       this._overlayCtx.translate(compSize.x(), height - compSize.y() - compSize.height());
       const container = this.containerFor(comp);
       container.style.left = compSize.x() + "px";
-      container.style.top = compSize.y() + "px";
+      container.style.top = (height - compSize.y()) + "px";
       container.style.width = compSize.width() + "px";
-      container.style.height = compSize.height() + "px";
+      container.style.height = (height - compSize.y() - compSize.height()) + "px";
       needsUpdate =
         comp.render(compSize.width(), compSize.height()) || needsUpdate;
       this._overlayCtx.restore();
