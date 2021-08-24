@@ -1284,7 +1284,7 @@ export default class GraphicsWindow extends BasicGLProvider {
       container.style.left = compSize.x() + "px";
       container.style.top = (height - compSize.y()) + "px";
       container.style.width = compSize.width() + "px";
-      container.style.height = (height - compSize.y() - compSize.height()) + "px";
+      container.style.height = compSize.height() + "px";
       needsUpdate =
         comp.render(compSize.width(), compSize.height()) || needsUpdate;
       this._overlayCtx.restore();
