@@ -164,6 +164,12 @@ export default class GraphicsWindow extends BasicGLProvider {
     });
   }
 
+  _componentContainers:Map<Component, HTMLElement>;
+
+  containerFor(comp:Component):HTMLElement {
+    return this._componentContainers.get(comp);
+  }
+
   setBackground(bg:Color) {
     super.setBackground(bg);
     this.scheduleUpdate();
@@ -657,7 +663,18 @@ export default class GraphicsWindow extends BasicGLProvider {
       throw new Error('Window must contain the given reference component');
     }
     container.addHorizontal(comp);
+    this.createComponentContainer(comp);
   };
+
+  createComponentContainer(comp:Component) {
+    if (this.containerFor(comp)) {
+      return;
+    }
+    const container = document.createElement('div');
+    container.style.position = "absolute";
+    this.container().appendChild(container);
+    this._componentContainers.set(comp, container);
+  }
 
   addVertical(comp:Component, other:Component) {
     comp.setOwner(this);
@@ -671,8 +688,7 @@ export default class GraphicsWindow extends BasicGLProvider {
       throw new Error('Window must contain the given reference component');
     }
     container.addVertical(comp);
-    console.log(this._layoutList);
-    console.log(this._layoutList);
+    this.createComponentContainer(comp);
   };
 
   removeComponent(compToRemove:Component) {
@@ -685,6 +701,7 @@ export default class GraphicsWindow extends BasicGLProvider {
       const next = this._layoutList.getNext(compToRemove);
       this._focusedComponent = prior || next;
     }
+    this._componentContainers.delete(compToRemove);
     return this._layoutList.remove(compToRemove);
   };
 
@@ -1260,6 +1277,11 @@ export default class GraphicsWindow extends BasicGLProvider {
       this._overlayCtx.lineTo(compSize.x(), height - (compSize.y()+compSize.height()));
       this._overlayCtx.clip();
       this._overlayCtx.translate(compSize.x(), height - compSize.y() - compSize.height());
+      const container = this.containerFor(comp);
+      container.style.left = compSize.x() + "px";
+      container.style.top = compSize.y() + "px";
+      container.style.width = compSize.width() + "px";
+      container.style.height = compSize.height() + "px";
       needsUpdate =
         comp.render(compSize.width(), compSize.height()) || needsUpdate;
       this._overlayCtx.restore();
