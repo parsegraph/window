@@ -674,6 +674,7 @@ export default class GraphicsWindow extends BasicGLProvider {
     }
     const container = document.createElement('div');
     container.style.position = "absolute";
+    container.style.pointerEvents = "none";
     this.container().appendChild(container);
     this._componentContainers.set(comp, container);
   }
