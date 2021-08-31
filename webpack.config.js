@@ -9,10 +9,13 @@ module.exports = {
       root:"parsegraph"
     }
   },
-  entry: path.resolve(__dirname, "src/window.ts"),
+  entry: {
+    main:path.resolve(__dirname, "src/window.ts"),
+    demo:"./src/demo.ts"
+  },
   output: {
     path: path.resolve(__dirname, "dist"),
-    filename: "parsegraph-window.js",
+    filename: "parsegraph-window.[name].js",
     globalObject: "this",
     library: "parsegraph",
     libraryTarget: "umd",

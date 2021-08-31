@@ -117,17 +117,6 @@ export default class ImageWindow extends GraphicsWindow {
     return targetSize;
   };
 
-  handleEvent(eventType:string, inputData?:any) {
-    if (eventType === 'tick') {
-      let needsUpdate = false;
-      this.forEach(function(comp:Component) {
-        needsUpdate = comp.handleEvent('tick', inputData) || needsUpdate;
-      }, this);
-      return needsUpdate;
-    }
-    return false;
-  };
-
   getSize(sizeOut:Rect) {
     sizeOut.setX(0);
     sizeOut.setY(0);
@@ -237,65 +226,6 @@ export default class ImageWindow extends GraphicsWindow {
   height() {
     return this.getHeight();
   }
-
-  addWidget(widget:any) {
-    return this.addComponent(widget.component());
-  };
-
-  addComponent(comp:Component) {
-    return this.addHorizontal(comp, null);
-  };
-
-  addHorizontal(comp:Component, other:Component) {
-    comp.setOwner(this);
-    this.scheduleUpdate();
-    if (!other) {
-      this._layoutList.addHorizontal(comp);
-      return;
-    }
-    const container = this._layoutList.contains(other);
-    if (!container) {
-      throw new Error('Window must contain the given reference component');
-    }
-    container.addHorizontal(comp);
-  };
-
-  addVertical(comp:Component, other:Component) {
-    comp.setOwner(this);
-    this.scheduleUpdate();
-    if (!other) {
-      this._layoutList.addVertical(comp);
-      return;
-    }
-    const container = this._layoutList.contains(other);
-    if (!container) {
-      throw new Error('Window must contain the given reference component');
-    }
-    container.addVertical(comp);
-    console.log(this._layoutList);
-    console.log(this._layoutList);
-  };
-
-  removeComponent(compToRemove:Component) {
-    this.scheduleUpdate();
-    if (compToRemove === this._focusedComponent) {
-      if (this._focusedComponent) {
-        this._focusedComponent.handleEvent('blur');
-      }
-      const prior = this._layoutList.getPrevious(compToRemove);
-      const next = this._layoutList.getNext(compToRemove);
-      this._focusedComponent = prior || next;
-    }
-    return this._layoutList.remove(compToRemove);
-  };
-
-  tick(startTime:number) {
-    let needsUpdate = false;
-    this.forEach(function(comp:Component) {
-      needsUpdate = comp.handleEvent('tick', startTime) || needsUpdate;
-    }, this);
-    return needsUpdate;
-  };
 
   paint(timeout?:number) {
     if (this.gl().isContextLost()) {

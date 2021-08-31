@@ -1,7 +1,7 @@
 import LayoutList, {ComponentLayout, COMPONENT_LAYOUT_VERTICAL, COMPONENT_LAYOUT_ENTRY, COMPONENT_LAYOUT_HORIZONTAL} from './LayoutList';
 import Component from './Component';
 
-import GraphicsWindow, {CLICK_DELAY_MILLIS, MAX_TEXTURE_SIZE, BACKGROUND_COLOR, TouchRecord} from './GraphicsWindow';
+import GraphicsWindow, {MAX_TEXTURE_SIZE, BACKGROUND_COLOR} from './GraphicsWindow';
 
 import ProxyComponent from './ProxyComponent';
 import ImageWindow from './ImageWindow';
@@ -13,6 +13,7 @@ import TimingBelt, {
 } from './TimingBelt';
 import Color from 'parsegraph-color';
 import Method from 'parsegraph-method';
+import WindowInput, {TouchRecord, CLICK_DELAY_MILLIS} from './WindowInput';
 
 export {
   Method,
@@ -23,10 +24,8 @@ export {
   ComponentLayout,
   Component,
   GraphicsWindow,
-  CLICK_DELAY_MILLIS,
   MAX_TEXTURE_SIZE,
   BACKGROUND_COLOR,
-  TouchRecord,
   ProxyComponent,
   ImageWindow,
   TimingBelt,
@@ -35,6 +34,9 @@ export {
   INTERVAL,
   IDLE_MARGIN,
   Color,
+  WindowInput,
+  TouchRecord,
+  CLICK_DELAY_MILLIS
 }
 
 export default GraphicsWindow;

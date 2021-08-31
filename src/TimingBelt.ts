@@ -162,8 +162,7 @@ runTicks(startTime:Date) {
   for (let i = 0; i < this._windows.length; ++i) {
     window = this._windows[i];
     window.clearLog();
-    inputChangedScene =
-      window.handleEvent('tick', startTime) || inputChangedScene;
+    inputChangedScene = window.tick(startTime) || inputChangedScene;
     window.log('Running timing belt. inputchangedscene=' + inputChangedScene);
   }
   return inputChangedScene;

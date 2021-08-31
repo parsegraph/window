@@ -1,4 +1,5 @@
 import Component from './Component';
+import GraphicsWindow from './GraphicsWindow';
 
 export default class ProxyComponent extends Component {
   _painterFunc:Function;
@@ -7,11 +8,14 @@ export default class ProxyComponent extends Component {
   _rendererFuncThisArg:object;
   _contextChangedFunc:Function;
   _contextChangedFuncThisArg:object;
-  _eventHandler:Function;
-  _eventHandlerThisArg:object;
   _serializerFunc:Function;
   _serializerFuncThisArg:object;
   _peer:any;
+  _unmount:()=>{};
+  _mountFunc:Function;
+  _mountFuncThisArg:object;
+  _tickFunc:Function;
+  _tickFuncThisArg:object;
 
   constructor(peer:any, peerType:string) {
     super(peerType);
@@ -22,10 +26,13 @@ export default class ProxyComponent extends Component {
     this._rendererFuncThisArg = null;
     this._contextChangedFunc = null;
     this._contextChangedFuncThisArg = null;
-    this._eventHandler = null;
-    this._eventHandlerThisArg = null;
     this._serializerFunc = null;
     this._serializerFuncThisArg = null;
+    this._unmount = null;
+    this._mountFunc = null;
+    this._mountFuncThisArg = null;
+    this._tickFunc = null;
+    this._tickFuncThisArg = null;
   }
   
   peer():any {
@@ -76,16 +83,35 @@ export default class ProxyComponent extends Component {
     return this._contextChangedFunc.call(this._contextChangedFuncThisArg, isLost);
   };
 
-  hasEventHandler() {
-    return !!this._eventHandler;
-  };
+  setMount(mountFunc:Function, mountFuncThisArg?:object) {
+    this._mountFunc = mountFunc;
+    this._mountFuncThisArg = mountFuncThisArg;
+  }
 
-  handleEvent(...args:any[]) {
-    if (!this._eventHandler) {
-      return false;
+  mount(window:GraphicsWindow):void {
+    if (this._mountFunc) {
+      this._unmount = this._mountFunc.call(this._mountFuncThisArg, window);
     }
-    return this._eventHandler.apply(this._eventHandlerThisArg, args);
-  };
+  }
+
+  unmount():void {
+    if (this._unmount) {
+      this._unmount.call(this._mountFuncThisArg);
+      this._unmount = null;
+    }
+  }
+
+  setTick(tickFunc:Function, tickFuncThisArg?:object) {
+    this._tickFunc = tickFunc;
+    this._tickFuncThisArg = tickFuncThisArg;
+  }
+
+  tick(elapsed:number):boolean {
+    if (this._tickFunc) {
+      return this._tickFunc.call(this._tickFuncThisArg, elapsed);
+    }
+    return false;
+  }
 
   setPainter(
       painterFunc:Function,
@@ -101,14 +127,6 @@ export default class ProxyComponent extends Component {
   ) {
     this._rendererFunc = rendererFunc;
     this._rendererFuncThisArg = rendererFuncThisArg;
-  };
-
-  setEventHandler(
-      eventHandler:Function,
-      eventHandlerThisArg?:object,
-  ) {
-    this._eventHandler = eventHandler;
-    this._eventHandlerThisArg = eventHandlerThisArg;
   };
 
   setContextChanged(

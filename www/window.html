@@ -2,42 +2,11 @@
 <html>
 	<head>
 		<script src="parsegraph-checkglerror.js"></script>
-		<script src="parsegraph-window.js"></script>
 	</head>
 	<body>
     <p>
       You should see a window beneath that is a random solid color.
     </p>
-	<script>
-    let WINDOW = null;
-    (function() {
-      const belt = new parsegraph.TimingBelt();
-      const window = new parsegraph.GraphicsWindow();
-      document.body.appendChild(window.container());
-      belt.addWindow(window);
-      const size = 500;
-      window.setExplicitSize(size, size);
-      window.setBackground(new parsegraph.Color(Math.random(), Math.random(), Math.random(), 1));
-      ["#000", "#f00", "#00b"].forEach((color)=>{
-          const comp = new parsegraph.ProxyComponent();
-          comp.setRenderer(()=>{
-            console.log("Rendering");
-            const ctx = window.overlay();
-            ctx.font = "34px serif";
-            ctx.textAlign = "left";
-            ctx.textBaseline="top"; 
-            ctx.fillStyle = color;
-            const jump = 20;
-            for(let y = 0; y < size; y += jump) {
-              for(let x = 0; x < size; x += jump) {
-                ctx.fillText("Hello World", size*Math.random(), size*Math.random());
-              }
-            }
-          });
-          window.addComponent(comp);
-      });
-      WINDOW = window;
-    })();
-	</script>
+	<script src="parsegraph-window.demo.js"></script>
 	</body>
 </html>
