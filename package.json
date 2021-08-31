@@ -1,8 +1,8 @@
 {
   "name": "parsegraph-window",
-  "version": "1.6.15-dev",
+  "version": "1.6.16-dev",
   "description": "window",
-  "main": "dist/parsegraph-window.js",
+  "main": "dist/parsegraph-window.main.js",
   "types": "dist/parsegraph-window.d.ts",
   "scripts": {
     "coverage": "nyc npm run test",
