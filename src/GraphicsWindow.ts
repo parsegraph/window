@@ -45,7 +45,7 @@ export default class GraphicsWindow extends BaseWindow {
   constructor(backgroundColor?:Color) {
     super("Window " + ++windowCount, backgroundColor || BACKGROUND_COLOR);
     this.container().className = 'parsegraph_Window';
-    this.container().style.display = "inline-block";
+    this.container().style.display = "block";
     this.container().style.position = "relative";
     this.container().style.overflow = "hidden";
 

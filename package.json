@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-window",
-  "version": "1.6.18-dev",
+  "version": "1.6.19-dev",
   "description": "window",
   "main": "dist/parsegraph-window.main.js",
   "types": "dist/parsegraph-window.d.ts",
