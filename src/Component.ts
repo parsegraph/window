@@ -1,4 +1,4 @@
-import BasicWindow from './BaseWindow';
+import BasicWindow from './BasicWindow';
 
 let componentCount = 0;
 export default abstract class Component {

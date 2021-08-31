@@ -4,7 +4,7 @@ import {elapsed} from 'parsegraph-timing';
 import Component from './Component';
 import Color from 'parsegraph-color';
 
-import BaseWindow from './BaseWindow';
+import BaseWindow from './BasicWindow';
 
 export const MAX_TEXTURE_SIZE = 2048;
 

@@ -1,5 +1,5 @@
 import Color from "parsegraph-color";
-import BasicWindow from "./BaseWindow";
+import BasicWindow from "./BasicWindow";
 import GraphicsWindow from "./GraphicsWindow";
 import ProxyComponent from "./ProxyComponent";
 import TimingBelt from "./TimingBelt";
