@@ -59,7 +59,6 @@ export default class GraphicsWindow extends BaseWindow {
     this._schedulerFuncThisArg = null;
 
     this.canvas().style.display = 'block';
-    this.canvas().setAttribute('tabIndex', '0');
 
     this._overlayCanvas = document.createElement('canvas');
     this._overlayCanvas.style.position = 'absolute';

@@ -68,6 +68,8 @@ export default class WindowInput {
     this._component = comp;
     this._listener = listener;
 
+    this.container().setAttribute('tabIndex', '0');
+
     this.container().addEventListener('focus', ()=>{
       return this.focusListener();
     });
