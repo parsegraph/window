@@ -6,6 +6,8 @@ SCRIPT_FILES = \
 	src/Component.ts \
 	src/ImageWindow.ts \
 	src/LayoutList.ts \
+	src/Keystroke.ts \
+	src/TouchRecord.ts \
 	src/ProxyComponent.ts
 
 all: build lint test coverage esdoc

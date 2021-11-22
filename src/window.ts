@@ -21,8 +21,10 @@ import TimingBelt, {
 } from "./TimingBelt";
 import Color from "parsegraph-color";
 import Method from "parsegraph-method";
-import WindowInput, { TouchRecord, CLICK_DELAY_MILLIS } from "./WindowInput";
+import WindowInput, { CLICK_DELAY_MILLIS } from "./WindowInput";
 import BasicWindow from "./BasicWindow";
+import Keystroke from "./Keystroke";
+import TouchRecord from "./TouchRecord";
 
 export {
   Method,
@@ -47,6 +49,7 @@ export {
   TouchRecord,
   CLICK_DELAY_MILLIS,
   BasicWindow,
+  Keystroke,
 };
 
 export default GraphicsWindow;

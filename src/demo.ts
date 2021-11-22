@@ -29,24 +29,30 @@ document.addEventListener("DOMContentLoaded", () => {
   ["#000", "#f00", "#ff0", "#0f0"].forEach((color) => {
     const comp = new ProxyComponent(null, "none");
     comp.setMount((window: BasicWindow) => {
-      new WindowInput(window, comp, (eventType, inputData) => {
-        if (eventType === "mouseup") {
-          if (
-            inputData.x < clickX - clickSize / 2 ||
-            inputData.x > clickX + clickSize / 2
-          ) {
-            return;
+      new WindowInput(
+        window as GraphicsWindow,
+        comp,
+        (eventType, inputData) => {
+          if (eventType === "mouseup") {
+            if (
+              inputData.x < clickX - clickSize / 2 ||
+              inputData.x > clickX + clickSize / 2
+            ) {
+              return false;
+            }
+            if (
+              inputData.y < clickY - clickSize / 2 ||
+              inputData.y > clickY + clickSize / 2
+            ) {
+              return false;
+            }
+            window.removeComponent(comp);
+            return true;
           }
-          if (
-            inputData.y < clickY - clickSize / 2 ||
-            inputData.y > clickY + clickSize / 2
-          ) {
-            return;
-          }
-          window.removeComponent(comp);
+          console.log(eventType, inputData);
+          return false;
         }
-        console.log(eventType, inputData);
-      });
+      );
     });
     comp.setPainter(() => {
       console.log("Painting");

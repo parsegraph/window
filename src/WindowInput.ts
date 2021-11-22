@@ -3,32 +3,10 @@ import { midPoint } from "parsegraph-matrix";
 import Component from "./Component";
 import GraphicsWindow from "./GraphicsWindow";
 import Rect from "parsegraph-rect";
+import Keystroke from "./Keystroke";
+import TouchRecord from "./TouchRecord";
 
 export const CLICK_DELAY_MILLIS: number = 500;
-
-export class TouchRecord {
-  identifier: number;
-  x: number;
-  y: number;
-  startX: number;
-  startY: number;
-  touchstart: number;
-
-  constructor(
-    id: number,
-    x: number,
-    y: number,
-    startX: number,
-    startY: number
-  ) {
-    this.identifier = id;
-    this.x = x;
-    this.y = y;
-    this.startX = startX;
-    this.startY = startY;
-    this.touchstart = null;
-  }
-}
 
 export type InputListener = (eventType: string, inputData?: any) => boolean;
 
@@ -359,23 +337,17 @@ export default class WindowInput {
       return;
     }
 
-    this.handleEvent("keydown", {
-      x: this._lastMouseX,
-      y: this._lastMouseY,
-      key: event.key,
-      keyCode: event.keyCode,
-      ctrlKey: event.ctrlKey,
-    });
+    return this.handleEvent(
+      "keydown",
+      Keystroke.fromKeyboardEvent(event, this._lastMouseX, this._lastMouseY)
+    );
   }
 
   keyupListener(event: KeyboardEvent) {
-    return this.handleEvent("keyup", {
-      x: this._lastMouseX,
-      y: this._lastMouseY,
-      key: event.key,
-      keyCode: event.keyCode,
-      ctrlKey: event.ctrlKey,
-    });
+    return this.handleEvent(
+      "keyup",
+      Keystroke.fromKeyboardEvent(event, this._lastMouseX, this._lastMouseY)
+    );
   }
 
   layout(): Rect {
