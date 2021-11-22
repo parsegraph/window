@@ -1,8 +1,9 @@
 {
   "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
     "outDir": "./dist-types/",
-    "noImplicitAny": false,
-    "module": "commonjs",
+    "noImplicitAny": true,
+    "module": "es2015",
     "target": "es5",
     "jsx": "react",
     "allowJs": true,
@@ -10,5 +11,9 @@
     "moduleResolution": "node",
     "declaration": true,
     "declarationMap": true
-  }
+  },
+  "exclude": [
+           "node_modules",
+           "test"
+  ]
 }
