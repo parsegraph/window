@@ -24,12 +24,14 @@ export class TouchRecord {
   }
 }
 
+export type InputListener = (eventType: string, inputData?: any) => boolean;
+
 export default class WindowInput {
 	_isDoubleClick:boolean;
 	_isDoubleTouch:boolean;
 	_lastMouseX:number;
 	_lastMouseY:number;
-  _listener:(eventType:string, inputData?:any)=>{};
+  _listener:InputListener;
 
 	_monitoredTouches:TouchRecord[];
     _touchstartTime:number;
@@ -40,7 +42,7 @@ export default class WindowInput {
     _focused:boolean;
     _component:Component;
 
-  constructor(window, comp, listener) {
+  constructor(window:GraphicsWindow, comp:Component, listener:InputListener) {
     if (!window) {
       throw new Error("Window must be provided");
     }
