@@ -1,10 +1,10 @@
-import Component from './Component';
-import Rect from 'parsegraph-rect';
+import Component from "./Component";
+import Rect from "parsegraph-rect";
 
 export enum ComponentLayout {
   VERTICAL,
   HORIZONTAL,
-  ENTRY
+  ENTRY,
 }
 
 export const COMPONENT_LAYOUT_VERTICAL = ComponentLayout.VERTICAL;
@@ -14,19 +14,19 @@ export const COMPONENT_LAYOUT_ENTRY = ComponentLayout.ENTRY;
 export type LayoutEntry = Component | LayoutList;
 
 export default class LayoutList {
-  _type:ComponentLayout;
-  _parent:LayoutList;
-  _entries:LayoutEntry[];
+  _type: ComponentLayout;
+  _parent: LayoutList;
+  _entries: LayoutEntry[];
 
-  constructor(type:ComponentLayout, parent?:LayoutList) {
+  constructor(type: ComponentLayout, parent?: LayoutList) {
     this._type = type;
     this._parent = parent;
     this._entries = [];
   }
 
-  setEntry(comp:Component) {
+  setEntry(comp: Component) {
     if (this._entries[0]) {
-      throw new Error('A layout list must not change its entry once set');
+      throw new Error("A layout list must not change its entry once set");
     }
     this._entries[0] = comp;
   }
@@ -39,13 +39,13 @@ export default class LayoutList {
     return this._type;
   }
 
-  addWithType(comp:Component, layoutType:ComponentLayout) {
+  addWithType(comp: Component, layoutType: ComponentLayout) {
     if (
       layoutType !== COMPONENT_LAYOUT_HORIZONTAL &&
       layoutType !== COMPONENT_LAYOUT_VERTICAL
     ) {
       throw new Error(
-          'LayoutList type must be horizontal or vertical when adding with type.',
+        "LayoutList type must be horizontal or vertical when adding with type."
       );
     }
     let entry;
@@ -59,7 +59,7 @@ export default class LayoutList {
             return;
           }
         }
-        throw new Error('Failed to insert entry into parent');
+        throw new Error("Failed to insert entry into parent");
       }
       // console.log("Changing list from entry");
       this._type = layoutType;
@@ -90,15 +90,15 @@ export default class LayoutList {
     }
   }
 
-  addVertical(comp:Component) {
+  addVertical(comp: Component) {
     return this.addWithType(comp, COMPONENT_LAYOUT_VERTICAL);
   }
 
-  addHorizontal(comp:Component) {
+  addHorizontal(comp: Component) {
     return this.addWithType(comp, COMPONENT_LAYOUT_HORIZONTAL);
   }
 
-  forEach(func:Function, funcThisArg:any, compSize?:Rect) {
+  forEach(func: Function, funcThisArg: any, compSize?: Rect) {
     if (this._type === COMPONENT_LAYOUT_ENTRY) {
       return func.call(funcThisArg, this.component(), compSize);
     }
@@ -111,7 +111,7 @@ export default class LayoutList {
         } else {
           entrySize.setHeight(compSize.height() / this._entries.length);
           entrySize.setY(
-              compSize.y() + (this._entries.length - 1 - i) * entrySize.height(),
+            compSize.y() + (this._entries.length - 1 - i) * entrySize.height()
           );
         }
       }
@@ -126,10 +126,10 @@ export default class LayoutList {
     return this._entries.length === 0;
   }
 
-  getPrevious(target:Component):Component {
+  getPrevious(target: Component): Component {
     let prior = null;
     if (
-      this.forEach(function(comp:Component) {
+      this.forEach(function (comp: Component) {
         if (target === comp) {
           return true;
         }
@@ -141,11 +141,11 @@ export default class LayoutList {
     return null;
   }
 
-  getNext(target:Component):Component {
+  getNext(target: Component): Component {
     let next = null;
     let found = false;
     if (
-      this.forEach(function(comp:Component) {
+      this.forEach(function (comp: Component) {
         if (found) {
           next = comp;
           return true;
@@ -160,9 +160,9 @@ export default class LayoutList {
     return null;
   }
 
-  remove(comp:Component) {
+  remove(comp: Component) {
     if (this._type === COMPONENT_LAYOUT_ENTRY) {
-      throw new Error('A layoutList entry cannot remove itself');
+      throw new Error("A layoutList entry cannot remove itself");
     }
     for (let i = 0; i < this._entries.length; ++i) {
       const entry = this._entries[i] as LayoutList;
@@ -183,7 +183,7 @@ export default class LayoutList {
     return false;
   }
 
-  contains(comp:Component):LayoutList {
+  contains(comp: Component): LayoutList {
     if (this._type === COMPONENT_LAYOUT_ENTRY) {
       return this.component() === comp ? this : null;
     }

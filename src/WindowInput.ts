@@ -1,20 +1,26 @@
-import normalizeWheel from 'parsegraph-normalizewheel';
-import {midPoint} from 'parsegraph-matrix';
-import Component from './Component';
-import GraphicsWindow from './GraphicsWindow';
-import Rect from 'parsegraph-rect';
+import normalizeWheel from "parsegraph-normalizewheel";
+import { midPoint } from "parsegraph-matrix";
+import Component from "./Component";
+import GraphicsWindow from "./GraphicsWindow";
+import Rect from "parsegraph-rect";
 
-export const CLICK_DELAY_MILLIS:number = 500;
+export const CLICK_DELAY_MILLIS: number = 500;
 
 export class TouchRecord {
-  identifier:number;
-  x:number;
-  y:number;
-  startX:number;
-  startY:number;
-  touchstart:number;
+  identifier: number;
+  x: number;
+  y: number;
+  startX: number;
+  startY: number;
+  touchstart: number;
 
-  constructor(id:number, x:number, y:number, startX:number, startY:number) {
+  constructor(
+    id: number,
+    x: number,
+    y: number,
+    startX: number,
+    startY: number
+  ) {
     this.identifier = id;
     this.x = x;
     this.y = y;
@@ -27,22 +33,26 @@ export class TouchRecord {
 export type InputListener = (eventType: string, inputData?: any) => boolean;
 
 export default class WindowInput {
-	_isDoubleClick:boolean;
-	_isDoubleTouch:boolean;
-	_lastMouseX:number;
-	_lastMouseY:number;
-  _listener:InputListener;
+  _isDoubleClick: boolean;
+  _isDoubleTouch: boolean;
+  _lastMouseX: number;
+  _lastMouseY: number;
+  _listener: InputListener;
 
-	_monitoredTouches:TouchRecord[];
-    _touchstartTime:number;
-    _touchendTimeout:any;
-    _mouseupTimeout:number;
-    _mousedownTime:number;
-    _window:GraphicsWindow;
-    _focused:boolean;
-    _component:Component;
+  _monitoredTouches: TouchRecord[];
+  _touchstartTime: number;
+  _touchendTimeout: any;
+  _mouseupTimeout: number;
+  _mousedownTime: number;
+  _window: GraphicsWindow;
+  _focused: boolean;
+  _component: Component;
 
-  constructor(window:GraphicsWindow, comp:Component, listener:InputListener) {
+  constructor(
+    window: GraphicsWindow,
+    comp: Component,
+    listener: InputListener
+  ) {
     if (!window) {
       throw new Error("Window must be provided");
     }
@@ -70,31 +80,31 @@ export default class WindowInput {
     this._component = comp;
     this._listener = listener;
 
-    this.container().setAttribute('tabIndex', '0');
+    this.container().setAttribute("tabIndex", "0");
 
-    this.container().addEventListener('focus', ()=>{
+    this.container().addEventListener("focus", () => {
       return this.focusListener();
     });
 
-    this.container().addEventListener('blur', ()=>{
+    this.container().addEventListener("blur", () => {
       return this.blurListener();
     });
 
     [
-      ['DOMMouseScroll', this.onWheel],
-      ['mousewheel', this.onWheel],
-      ['touchstart', this.touchstartListener],
-      ['touchmove', this.touchmoveListener],
-      ['touchend', this.removeTouchListener],
-      ['touchcancel', this.removeTouchListener],
-      ['mousedown', this.mousedownListener],
-      ['mousemove', this.mousemoveListener],
-      ['mouseup', this.mouseupListener],
-      ['mouseout', this.mouseupListener],
-      ['keydown', this.keydownListener],
+      ["DOMMouseScroll", this.onWheel],
+      ["mousewheel", this.onWheel],
+      ["touchstart", this.touchstartListener],
+      ["touchmove", this.touchmoveListener],
+      ["touchend", this.removeTouchListener],
+      ["touchcancel", this.removeTouchListener],
+      ["mousedown", this.mousedownListener],
+      ["mousemove", this.mousemoveListener],
+      ["mouseup", this.mouseupListener],
+      ["mouseout", this.mouseupListener],
+      ["keydown", this.keydownListener],
       ["keyup", this.keyupListener],
-    ].forEach((pair)=>{
-      this.container().addEventListener(pair[0] as string, (event)=>{
+    ].forEach((pair) => {
+      this.container().addEventListener(pair[0] as string, (event) => {
         return (pair[1] as Function).call(this, event, comp);
       });
     });
@@ -114,50 +124,50 @@ export default class WindowInput {
 
   focusedComponent() {
     return this._focused ? this._component : null;
-  };
+  }
 
   numActiveTouches() {
     let realMonitoredTouches = 0;
-    this._monitoredTouches.forEach(function(touchRec) {
+    this._monitoredTouches.forEach(function (touchRec) {
       if (touchRec.touchstart) {
         realMonitoredTouches++;
       }
     }, this);
     return realMonitoredTouches;
-  };
+  }
 
   lastMouseCoords() {
     return [this._lastMouseX, this._lastMouseY];
-  };
+  }
 
   lastMouseX() {
     return this._lastMouseX;
-  };
+  }
 
   lastMouseY() {
     return this._lastMouseY;
-  };
+  }
 
   /**
    * The receiver of all canvas wheel events.
-   * 
+   *
    * @param {WheelEvent} event current wheel event
    * @param {Component} comp component where the event was sourced
    */
-  onWheel(event:WheelEvent, comp:Component) {
+  onWheel(event: WheelEvent, comp: Component) {
     event.preventDefault();
 
     // console.log("Wheel event", wheel);
     const e = normalizeWheel(event);
-    this.handleEvent('wheel', {
-      comp:comp,
-      x:event.offsetX,
-      y:event.offsetY,
-      ...e
+    this.handleEvent("wheel", {
+      comp: comp,
+      x: event.offsetX,
+      y: event.offsetY,
+      ...e,
     });
   }
 
-  mousedownListener(event:MouseEvent) {
+  mousedownListener(event: MouseEvent) {
     this._focused = true;
 
     console.log(event);
@@ -168,7 +178,7 @@ export default class WindowInput {
     this._mousedownTime = Date.now();
 
     if (
-      this.handleEvent('mousedown', {
+      this.handleEvent("mousedown", {
         x: this._lastMouseX,
         y: this._lastMouseY,
         button: event.button,
@@ -189,7 +199,7 @@ export default class WindowInput {
     }
   }
 
-  removeTouchListener(event:TouchEvent, comp:Component) {
+  removeTouchListener(event: TouchEvent, comp: Component) {
     // alert
     // console.log("touchend");
     for (let i = 0; i < event.changedTouches.length; ++i) {
@@ -202,7 +212,7 @@ export default class WindowInput {
       Date.now() - this._touchstartTime < CLICK_DELAY_MILLIS
     ) {
       const that = this;
-      this._touchendTimeout = setTimeout(function() {
+      this._touchendTimeout = setTimeout(function () {
         that._touchendTimeout = null;
 
         if (that._isDoubleTouch) {
@@ -217,8 +227,8 @@ export default class WindowInput {
     }
 
     if (
-      this.handleEvent('touchend', {
-        comp:comp,
+      this.handleEvent("touchend", {
+        comp: comp,
         x: this._lastMouseX,
         y: this._lastMouseY,
         startTime: this._touchstartTime,
@@ -229,7 +239,7 @@ export default class WindowInput {
     }
   }
 
-  touchmoveListener(event:TouchEvent, comp:Component) {
+  touchmoveListener(event: TouchEvent, comp: Component) {
     if (!this._focused) {
       return;
     }
@@ -242,8 +252,8 @@ export default class WindowInput {
 
       const touchX = touch.pageX;
       const touchY = touch.pageY;
-      this.handleEvent('touchmove', {
-        comp:comp,
+      this.handleEvent("touchmove", {
+        comp: comp,
         multiple: this._monitoredTouches.length != 1,
         x: touchX,
         y: touchY,
@@ -258,13 +268,13 @@ export default class WindowInput {
 
     if (this.numActiveTouches() > 1) {
       const zoomCenter = midPoint(
-          this._monitoredTouches[0].x,
-          this._monitoredTouches[0].y,
-          this._monitoredTouches[1].x,
-          this._monitoredTouches[1].y,
+        this._monitoredTouches[0].x,
+        this._monitoredTouches[0].y,
+        this._monitoredTouches[1].x,
+        this._monitoredTouches[1].y
       );
-      this.handleEvent('touchzoom', {
-        comp:comp,
+      this.handleEvent("touchzoom", {
+        comp: comp,
         x: zoomCenter[0],
         y: zoomCenter[1],
         dx: this._monitoredTouches[1].x - this._monitoredTouches[0].x,
@@ -273,7 +283,7 @@ export default class WindowInput {
     }
   }
 
-  touchstartListener(event:TouchEvent, comp:Component) {
+  touchstartListener(event: TouchEvent, comp: Component) {
     event.preventDefault();
     this._focused = true;
 
@@ -283,15 +293,17 @@ export default class WindowInput {
       const touchY = touch.pageY;
       const touchRec = new TouchRecord(
         touch.identifier,
-        touchX, touchY,
-        touchX, touchY
+        touchX,
+        touchY,
+        touchX,
+        touchY
       );
       this._monitoredTouches.push(touchRec);
       this._lastMouseX = touchX;
       this._lastMouseY = touchY;
 
-      this.handleEvent('touchstart', {
-        comp:comp,
+      this.handleEvent("touchstart", {
+        comp: comp,
         multiple: this._monitoredTouches.length != 1,
         x: touchX,
         y: touchY,
@@ -304,14 +316,14 @@ export default class WindowInput {
     }
 
     if (this.numActiveTouches() > 1) {
-    // Zoom.
+      // Zoom.
       const zoomCenter = midPoint(
-          this._monitoredTouches[0].x,
-          this._monitoredTouches[0].y,
-          this._monitoredTouches[1].x,
-          this._monitoredTouches[1].y,
+        this._monitoredTouches[0].x,
+        this._monitoredTouches[0].y,
+        this._monitoredTouches[1].x,
+        this._monitoredTouches[1].y
       );
-      this.handleEvent('touchzoom', {
+      this.handleEvent("touchzoom", {
         x: zoomCenter[0],
         y: zoomCenter[1],
         dx: this._monitoredTouches[1].x - this._monitoredTouches[0].x,
@@ -320,8 +332,8 @@ export default class WindowInput {
     }
   }
 
-  mousemoveListener(event:MouseEvent) {
-    this.handleEvent('mousemove', {
+  mousemoveListener(event: MouseEvent) {
+    this.handleEvent("mousemove", {
       x: event.offsetX,
       y: event.offsetY,
       dx: event.offsetX - this._lastMouseX,
@@ -332,59 +344,58 @@ export default class WindowInput {
   }
 
   mouseupListener() {
-    this.handleEvent('mouseup', {
+    this.handleEvent("mouseup", {
       x: this._lastMouseX,
       y: this._lastMouseY,
     });
   }
 
-  keydownListener(event:KeyboardEvent) {
+  keydownListener(event: KeyboardEvent) {
     if (event.altKey || event.metaKey) {
-    // console.log("Key event had ignored modifiers");
+      // console.log("Key event had ignored modifiers");
       return;
     }
     if (event.ctrlKey && event.shiftKey) {
       return;
     }
 
-    this.handleEvent('keydown', {
+    this.handleEvent("keydown", {
       x: this._lastMouseX,
       y: this._lastMouseY,
       key: event.key,
       keyCode: event.keyCode,
-      ctrlKey: event.ctrlKey
+      ctrlKey: event.ctrlKey,
     });
   }
 
-  keyupListener(event:KeyboardEvent) {
-    return this.handleEvent('keyup', {
-        x: this._lastMouseX,
-        y: this._lastMouseY,
-        key: event.key,
-        keyCode: event.keyCode,
-        ctrlKey: event.ctrlKey
-      });
+  keyupListener(event: KeyboardEvent) {
+    return this.handleEvent("keyup", {
+      x: this._lastMouseX,
+      y: this._lastMouseY,
+      key: event.key,
+      keyCode: event.keyCode,
+      ctrlKey: event.ctrlKey,
+    });
   }
 
-
-  layout():Rect {
+  layout(): Rect {
     return this._window.layout(this._component);
   }
 
-  handleEvent(eventType:string, inputData:any) {
+  handleEvent(eventType: string, inputData: any) {
     return this._listener(eventType, inputData);
-  };
+  }
 
-  getTouchByIdentifier(identifier:number):TouchRecord {
+  getTouchByIdentifier(identifier: number): TouchRecord {
     for (let i = 0; i < this._monitoredTouches.length; ++i) {
       if (this._monitoredTouches[i].identifier == identifier) {
         return this._monitoredTouches[i];
       }
     }
     return null;
-  };
+  }
 
-  removeTouchByIdentifier(identifier:number) {
+  removeTouchByIdentifier(identifier: number) {
     let touch = null;
     for (let i = 0; i < this._monitoredTouches.length; ++i) {
       if (this._monitoredTouches[i].identifier == identifier) {
@@ -393,5 +404,5 @@ export default class WindowInput {
       }
     }
     return touch;
-  };
+  }
 }

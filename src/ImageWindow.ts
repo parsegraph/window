@@ -1,35 +1,38 @@
-import Color from 'parsegraph-color';
-import {setVFlip} from 'parsegraph-matrix';
-import { elapsed } from 'parsegraph-timing';
-import Rect from 'parsegraph-rect';
-import Component from './Component';
-import LayoutList, {COMPONENT_LAYOUT_HORIZONTAL} from './LayoutList';
-import GraphicsWindow, {BACKGROUND_COLOR, MAX_TEXTURE_SIZE} from './GraphicsWindow';
+import Color from "parsegraph-color";
+import { setVFlip } from "parsegraph-matrix";
+import { elapsed } from "parsegraph-timing";
+import Rect from "parsegraph-rect";
+import Component from "./Component";
+import LayoutList, { COMPONENT_LAYOUT_HORIZONTAL } from "./LayoutList";
+import GraphicsWindow, {
+  BACKGROUND_COLOR,
+  MAX_TEXTURE_SIZE,
+} from "./GraphicsWindow";
 
 export default class ImageWindow extends GraphicsWindow {
-  _backgroundColor:Color;
-  _schedulerFunc:Function;
-  _schedulerFuncThisArg:any;
-  _canvas:HTMLCanvasElement;
-  _gl:WebGLRenderingContext;
-  _shaders:{[id:string]:WebGLProgram};
-  _layoutList:LayoutList;
-  _textureSize:number;
-  _needsUpdate:boolean;
-  _imageCanvas:HTMLCanvasElement;
-  _imageContext:CanvasRenderingContext2D;
-  _explicitWidth:number;
-  _explicitHeight:number;
-  _focusedComponent:Component;
-  _image:HTMLImageElement;
-  _fb:WebGLFramebuffer;
-  _targetTexture:WebGLTexture;
+  _backgroundColor: Color;
+  _schedulerFunc: Function;
+  _schedulerFuncThisArg: any;
+  _canvas: HTMLCanvasElement;
+  _gl: WebGLRenderingContext;
+  _shaders: { [id: string]: WebGLProgram };
+  _layoutList: LayoutList;
+  _textureSize: number;
+  _needsUpdate: boolean;
+  _imageCanvas: HTMLCanvasElement;
+  _imageContext: CanvasRenderingContext2D;
+  _explicitWidth: number;
+  _explicitHeight: number;
+  _focusedComponent: Component;
+  _image: HTMLImageElement;
+  _fb: WebGLFramebuffer;
+  _targetTexture: WebGLTexture;
 
-  constructor(width:number, height:number) {
+  constructor(width: number, height: number) {
     super();
     if (!width || !height) {
       throw new Error(
-          'ImageWindow must receive a width and height during construction',
+        "ImageWindow must receive a width and height during construction"
       );
     }
     this._backgroundColor = BACKGROUND_COLOR;
@@ -38,42 +41,40 @@ export default class ImageWindow extends GraphicsWindow {
     this._schedulerFuncThisArg = null;
 
     // The canvas that will be drawn to.
-    this._canvas = document.createElement('canvas');
+    this._canvas = document.createElement("canvas");
     const that = this;
     this._canvas.addEventListener(
-        'webglcontextlost',
-        function(event) {
-          console.log('Context lost');
-          event.preventDefault();
-          that.onContextChanged(true);
-        },
-        false,
+      "webglcontextlost",
+      function (event) {
+        console.log("Context lost");
+        event.preventDefault();
+        that.onContextChanged(true);
+      },
+      false
     );
     this._canvas.addEventListener(
-        'webglcontextrestored',
-        function() {
-          console.log('Context restored');
-          that.onContextChanged(false);
-        },
-        false,
+      "webglcontextrestored",
+      function () {
+        console.log("Context restored");
+        that.onContextChanged(false);
+      },
+      false
     );
     this._canvas.addEventListener(
-        'contextmenu',
-        function(e) {
-          e.preventDefault();
-        },
-        false,
+      "contextmenu",
+      function (e) {
+        e.preventDefault();
+      },
+      false
     );
-    this._canvas.style.display = 'block';
-    this._canvas.setAttribute('tabIndex', '0');
+    this._canvas.style.display = "block";
+    this._canvas.setAttribute("tabIndex", "0");
 
     // GL content, not created until used.
     this._gl = null;
     this._shaders = {};
 
-    this._layoutList = new LayoutList(
-        COMPONENT_LAYOUT_HORIZONTAL,
-    );
+    this._layoutList = new LayoutList(COMPONENT_LAYOUT_HORIZONTAL);
 
     this._textureSize = NaN;
 
@@ -81,89 +82,85 @@ export default class ImageWindow extends GraphicsWindow {
 
     this.setExplicitSize(width, height);
     this.newImage();
-    this._imageCanvas = document.createElement('canvas');
+    this._imageCanvas = document.createElement("canvas");
     this._imageCanvas.width = this.width();
     this._imageCanvas.height = this.height();
-    this._imageContext = this._imageCanvas.getContext('2d');
+    this._imageContext = this._imageCanvas.getContext("2d");
   }
 
-  log() {
+  log() {}
 
-  };
-
-  clearLog() {
-
-  };
+  clearLog() {}
 
   isOffscreen() {
     return true;
-  };
+  }
 
   numComponents() {
     return this._layoutList.count();
-  };
+  }
 
-  layout(target:Component) {
+  layout(target: Component) {
     let targetSize = null;
-    this.forEach(function(comp:Component, compSize:Rect) {
+    this.forEach(function (comp: Component, compSize: Rect) {
       if (target === comp) {
         targetSize = compSize;
         return true;
       }
     }, this);
     if (!targetSize) {
-      throw new Error('Layout target must be a child component of this window');
+      throw new Error("Layout target must be a child component of this window");
     }
     return targetSize;
-  };
+  }
 
-  getSize(sizeOut:Rect) {
+  getSize(sizeOut: Rect) {
     sizeOut.setX(0);
     sizeOut.setY(0);
     sizeOut.setWidth(this.width());
     sizeOut.setHeight(this.height());
-  };
+  }
 
-  forEach(func:Function, funcThisArg?:any) {
+  forEach(func: Function, funcThisArg?: any) {
     const windowSize = new Rect();
     this.getSize(windowSize);
     return this._layoutList.forEach(func, funcThisArg, windowSize);
-  };
+  }
 
   scheduleUpdate() {
     // console.log("Window is scheduling update");
     if (this._schedulerFunc) {
       this._schedulerFunc.call(this._schedulerFuncThisArg, this);
     }
-  };
+  }
 
-  setOnScheduleUpdate(
-      schedulerFunc:Function,
-      schedulerFuncThisArg?:any,
-  ) {
+  setOnScheduleUpdate(schedulerFunc: Function, schedulerFuncThisArg?: any) {
     this._schedulerFunc = schedulerFunc;
     this._schedulerFuncThisArg = schedulerFuncThisArg;
-  };
+  }
 
   id() {
     return this._id;
-  };
+  }
 
   shaders() {
     return this._shaders;
-  };
+  }
 
   textureSize() {
     if (this._gl.isContextLost()) {
       return NaN;
     }
     if (Number.isNaN(this._textureSize)) {
-      this._textureSize = Math.min(MAX_TEXTURE_SIZE, this.gl().getParameter(this.gl().MAX_TEXTURE_SIZE));
+      this._textureSize = Math.min(
+        MAX_TEXTURE_SIZE,
+        this.gl().getParameter(this.gl().MAX_TEXTURE_SIZE)
+      );
     }
     return this._textureSize;
-  };
+  }
 
-  onContextChanged(isLost:boolean) {
+  onContextChanged(isLost: boolean) {
     if (isLost) {
       const keys = [];
       for (const k in this._shaders) {
@@ -177,44 +174,46 @@ export default class ImageWindow extends GraphicsWindow {
         }
       }
     }
-    this.forEach(function(comp:Component) {
+    this.forEach(function (comp: Component) {
       if (comp.contextChanged) {
         comp.contextChanged(isLost);
       }
     }, this);
-  };
+  }
 
   canvas() {
     return this._canvas;
-  };
+  }
 
   gl() {
     if (this._gl) {
       return this._gl;
     }
-    this._gl = this._canvas.getContext('webgl', {preserveDrawingBuffer: true});
+    this._gl = this._canvas.getContext("webgl", {
+      preserveDrawingBuffer: true,
+    });
     if (this._gl) {
       return this._gl;
     }
-    throw new Error('GL context is not supported');
-  };
+    throw new Error("GL context is not supported");
+  }
 
-  setGL(gl:WebGLRenderingContext) {
+  setGL(gl: WebGLRenderingContext) {
     this._gl = gl;
-  };
+  }
 
-  setExplicitSize(w:number, h:number) {
+  setExplicitSize(w: number, h: number) {
     this._explicitWidth = w;
     this._explicitHeight = h;
-  };
+  }
 
   upscale() {
     return 2;
-  };
+  }
 
   getWidth() {
     return this._explicitWidth * this.upscale();
-  };
+  }
 
   width() {
     return this.getWidth();
@@ -222,12 +221,12 @@ export default class ImageWindow extends GraphicsWindow {
 
   getHeight() {
     return this._explicitHeight * this.upscale();
-  };
+  }
   height() {
     return this.getHeight();
   }
 
-  paint(timeout?:number) {
+  paint(timeout?: number) {
     if (this.gl().isContextLost()) {
       return;
     }
@@ -239,36 +238,36 @@ export default class ImageWindow extends GraphicsWindow {
     const startTime = new Date();
     const compCount = this.numComponents();
     while (timeout > 0) {
-      this.forEach(function(comp:Component) {
+      this.forEach(function (comp: Component) {
         needsUpdate = comp.paint(timeout / compCount) || needsUpdate;
       }, this);
       timeout = Math.max(0, timeout - elapsed(startTime));
     }
     return needsUpdate;
-  };
+  }
 
-  setBackground(color:number|Color, ...args:number[]):void {
+  setBackground(color: number | Color, ...args: number[]): void {
     if (args.length > 0) {
       return this.setBackground(new Color(color as number, ...args));
     }
     this._backgroundColor = color as Color;
-  };
+  }
 
   backgroundColor() {
     return this._backgroundColor;
-  };
+  }
 
   /**
    * Returns whether the window has a nonzero client width and height.
    *
    * @return {boolean} true if the window has a valid size for a projection matrix.
    */
-  canProject():boolean {
+  canProject(): boolean {
     const displayWidth = this.getWidth();
     const displayHeight = this.getHeight();
 
     return displayWidth != 0 && displayHeight != 0;
-  };
+  }
 
   renderBasic() {
     const gl = this.gl();
@@ -278,31 +277,36 @@ export default class ImageWindow extends GraphicsWindow {
     // console.log("Rendering window");
     if (!this.canProject()) {
       throw new Error(
-          'Refusing to render to an unprojectable window.' +
-          ' Use canProject() to handle, and parent this' +
-          ' window\'s container to fix.',
+        "Refusing to render to an unprojectable window." +
+          " Use canProject() to handle, and parent this" +
+          " window's container to fix."
       );
     }
 
     // const compSize = new Rect();
     let needsUpdate = false;
     gl.clearColor(
-        this._backgroundColor.r(),
-        this._backgroundColor.g(),
-        this._backgroundColor.b(),
-        this._backgroundColor.a(),
+      this._backgroundColor.r(),
+      this._backgroundColor.g(),
+      this._backgroundColor.b(),
+      this._backgroundColor.a()
     );
     gl.enable(gl.SCISSOR_TEST);
-    this.forEach(function(comp:Component, compSize:Rect) {
+    this.forEach(function (comp: Component, compSize: Rect) {
       // console.log("Rendering: " + comp.peer().id());
       // console.log("Rendering component of size " +
       //   compSize.width() + "x" + compSize.height());
-      gl.scissor(compSize.x(), compSize.y(), compSize.width(), compSize.height());
+      gl.scissor(
+        compSize.x(),
+        compSize.y(),
+        compSize.width(),
+        compSize.height()
+      );
       gl.viewport(
-          compSize.x(),
-          compSize.y(),
-          compSize.width(),
-          compSize.height(),
+        compSize.x(),
+        compSize.y(),
+        compSize.width(),
+        compSize.height()
       );
       needsUpdate =
         comp.render(compSize.width(), compSize.height()) || needsUpdate;
@@ -310,23 +314,23 @@ export default class ImageWindow extends GraphicsWindow {
     gl.disable(gl.SCISSOR_TEST);
 
     return needsUpdate;
-  };
+  }
 
   loadImageFromTexture(
-      gl:WebGLRenderingContext,
-      texture:WebGLTexture,
-      width:number,
-      height:number,
+    gl: WebGLRenderingContext,
+    texture: WebGLTexture,
+    width: number,
+    height: number
   ) {
     // Create a framebuffer backed by the texture
     const framebuffer = gl.createFramebuffer();
     gl.bindFramebuffer(gl.FRAMEBUFFER, framebuffer);
     gl.framebufferTexture2D(
-        gl.FRAMEBUFFER,
-        gl.COLOR_ATTACHMENT0,
-        gl.TEXTURE_2D,
-        texture,
-        0,
+      gl.FRAMEBUFFER,
+      gl.COLOR_ATTACHMENT0,
+      gl.TEXTURE_2D,
+      texture,
+      0
     );
 
     // Read the contents of the framebuffer
@@ -336,10 +340,10 @@ export default class ImageWindow extends GraphicsWindow {
     gl.deleteFramebuffer(framebuffer);
 
     // Create a 2D canvas to store the result
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
     canvas.width = width;
     canvas.height = height;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
 
     // Copy the pixels to a 2D canvas
     const imageData = context.createImageData(width, height);
@@ -347,17 +351,17 @@ export default class ImageWindow extends GraphicsWindow {
     context.putImageData(imageData, 0, 0);
 
     this._image.src = canvas.toDataURL();
-  };
+  }
 
   image() {
     return this._image;
-  };
+  }
 
   newImage() {
     this._image = new Image();
-    this._image.style.width = Math.floor(this._explicitWidth) + 'px';
-    this._image.style.height = Math.floor(this._explicitHeight) + 'px';
-  };
+    this._image.style.width = Math.floor(this._explicitWidth) + "px";
+    this._image.style.height = Math.floor(this._explicitHeight) + "px";
+  }
 
   render() {
     const needsUpdate = this.renderBasic();
@@ -381,15 +385,15 @@ export default class ImageWindow extends GraphicsWindow {
         const format = gl.RGBA;
         const type = gl.UNSIGNED_BYTE;
         gl.texImage2D(
-            gl.TEXTURE_2D,
-            level,
-            internalFormat,
-            targetTextureWidth,
-            targetTextureHeight,
-            border,
-            format,
-            type,
-            null,
+          gl.TEXTURE_2D,
+          level,
+          internalFormat,
+          targetTextureWidth,
+          targetTextureHeight,
+          border,
+          format,
+          type,
+          null
         );
 
         // set the filtering so we don't need mips
@@ -402,11 +406,11 @@ export default class ImageWindow extends GraphicsWindow {
       // attach the texture as the first color attachment
       const attachmentPoint = gl.COLOR_ATTACHMENT0;
       gl.framebufferTexture2D(
-          gl.FRAMEBUFFER,
-          attachmentPoint,
-          gl.TEXTURE_2D,
-          targetTexture,
-          0,
+        gl.FRAMEBUFFER,
+        attachmentPoint,
+        gl.TEXTURE_2D,
+        targetTexture,
+        0
       );
     } else {
       gl.bindFramebuffer(gl.FRAMEBUFFER, this._fb);
@@ -415,16 +419,15 @@ export default class ImageWindow extends GraphicsWindow {
     setVFlip(true);
     try {
       this.renderBasic();
-    }
-    finally {
+    } finally {
       setVFlip(false);
     }
 
     this.loadImageFromTexture(
-        gl,
-        this._targetTexture,
-        targetTextureWidth,
-        targetTextureHeight,
+      gl,
+      this._targetTexture,
+      targetTextureWidth,
+      targetTextureHeight
     );
 
     return needsUpdate;
