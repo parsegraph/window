@@ -2,7 +2,7 @@ import { AnimationTimer, TimeoutTimer, elapsed } from "parsegraph-timing";
 
 import Method from "parsegraph-method";
 
-import Window from "./GraphicsWindow";
+import GraphicsWindow from "./GraphicsWindow";
 
 // Whether idle loops are limited to being called only as
 // often as parsegraph_INTERVAL.
@@ -18,7 +18,7 @@ export const INTERVAL = 15;
 export const IDLE_MARGIN = 1;
 
 export default class TimingBelt {
-  _windows: Window[];
+  _windows: GraphicsWindow[];
 
   _burstIdle: boolean;
   _lastIdle: Date;
@@ -52,13 +52,13 @@ export default class TimingBelt {
     this.idle(INTERVAL - IDLE_MARGIN);
   }
 
-  addWindow(window: Window) {
+  addWindow(window: GraphicsWindow) {
     this._windows.push(window);
     window.setOnScheduleUpdate(this.scheduleUpdate, this);
     this.scheduleUpdate();
   }
 
-  removeWindow(window: Window) {
+  removeWindow(window: GraphicsWindow) {
     for (let i = 0; i < this._windows.length; ++i) {
       if (this._windows[i] === window) {
         this._windows.splice(i, 1);
