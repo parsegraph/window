@@ -162,7 +162,7 @@ export default class TimingBelt {
     for (let i = 0; i < this._windows.length; ++i) {
       window = this._windows[i];
       window.clearLog();
-      inputChangedScene = window.tick(startTime) || inputChangedScene;
+      inputChangedScene = window.tick(startTime.getTime()) || inputChangedScene;
       window.log("Running timing belt. inputchangedscene=" + inputChangedScene);
     }
     return inputChangedScene;
