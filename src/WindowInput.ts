@@ -58,17 +58,25 @@ export default class WindowInput {
     this._component = comp;
     this._listener = listener;
 
-    this.container().setAttribute("tabIndex", "0");
+    const windowContainer = this._window.container();
+    windowContainer.setAttribute("tabIndex", "0");
 
-    this.container().addEventListener("focus", () => {
-      return this.focusListener();
-    });
+    const addListeners = (elem:Element, listeners:[string, Function][])=>{
+      listeners.forEach((pair:[string, Function]) => {
+        elem.addEventListener(pair[0] as string, (event) => {
+          return (pair[1] as Function).call(this, event, comp);
+        });
+      });
+    };
 
-    this.container().addEventListener("blur", () => {
-      return this.blurListener();
-    });
+    addListeners(windowContainer, [
+      ["blur", this.blurListener],
+      ["focus", this.focusListener],
+      ["keydown", this.keydownListener],
+      ["keyup", this.keyupListener]
+    ]);
 
-    [
+    addListeners(this.container(), [
       ["DOMMouseScroll", this.onWheel],
       ["mousewheel", this.onWheel],
       ["touchstart", this.touchstartListener],
@@ -79,13 +87,7 @@ export default class WindowInput {
       ["mousemove", this.mousemoveListener],
       ["mouseup", this.mouseupListener],
       ["mouseout", this.mouseupListener],
-      ["keydown", this.keydownListener],
-      ["keyup", this.keyupListener],
-    ].forEach((pair) => {
-      this.container().addEventListener(pair[0] as string, (event) => {
-        return (pair[1] as Function).call(this, event, comp);
-      });
-    });
+    ]);
   }
 
   container() {
