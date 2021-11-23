@@ -58,7 +58,7 @@ export default class WindowInput {
     this._component = comp;
     this._listener = listener;
 
-    const windowContainer = this._window.container();
+    const windowContainer = this._window.canvas();
     windowContainer.setAttribute("tabIndex", "0");
 
     const addListeners = (elem:Element, listeners:[string, Function][])=>{
