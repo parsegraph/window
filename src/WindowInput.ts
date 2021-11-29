@@ -61,8 +61,8 @@ export default class WindowInput {
     const windowContainer = this._window.canvas();
     windowContainer.setAttribute("tabIndex", "0");
 
-    const addListeners = (elem:Element, listeners:[string, Function][])=>{
-      listeners.forEach((pair:[string, Function]) => {
+    const addListeners = (elem: Element, listeners: [string, Function][]) => {
+      listeners.forEach((pair: [string, Function]) => {
         elem.addEventListener(pair[0] as string, (event) => {
           return (pair[1] as Function).call(this, event, comp);
         });
@@ -73,7 +73,7 @@ export default class WindowInput {
       ["blur", this.blurListener],
       ["focus", this.focusListener],
       ["keydown", this.keydownListener],
-      ["keyup", this.keyupListener]
+      ["keyup", this.keyupListener],
     ]);
 
     addListeners(this.container(), [
