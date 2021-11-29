@@ -21,6 +21,10 @@ export default abstract class Component {
     return this._peerType;
   }
 
+  window(): BasicWindow {
+    return this._window;
+  }
+
   peer() {
     return this;
   }
