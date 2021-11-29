@@ -2,6 +2,9 @@ import { BasicGLProvider } from "parsegraph-compileprogram";
 import Rect from "parsegraph-rect";
 import Component from "./Component";
 
+/**
+ * A BasicWindow displays Components using 2D, 3D, or DOM-based rendering.
+ */
 export default abstract class BasicWindow extends BasicGLProvider {
   abstract containerFor(comp: Component): Element;
   abstract numComponents(): number;
