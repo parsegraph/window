@@ -1,10 +1,10 @@
 import normalizeWheel from "parsegraph-normalizewheel";
 import { midPoint } from "parsegraph-matrix";
 import Component from "./Component";
-import GraphicsWindow from "./GraphicsWindow";
 import Rect from "parsegraph-rect";
 import Keystroke from "./Keystroke";
 import TouchRecord from "./TouchRecord";
+import BasicWindow from "./BasicWindow";
 
 export const CLICK_DELAY_MILLIS: number = 500;
 
@@ -22,15 +22,11 @@ export default class WindowInput {
   _touchendTimeout: any;
   _mouseupTimeout: number;
   _mousedownTime: number;
-  _window: GraphicsWindow;
+  _window: BasicWindow;
   _focused: boolean;
   _component: Component;
 
-  constructor(
-    window: GraphicsWindow,
-    comp: Component,
-    listener: InputListener
-  ) {
+  constructor(window: BasicWindow, comp: Component, listener: InputListener) {
     if (!window) {
       throw new Error("Window must be provided");
     }
