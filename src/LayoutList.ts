@@ -1,4 +1,4 @@
-import Component from "./Component";
+import {Projected} from "parsegraph-projector";
 import Rect from "parsegraph-rect";
 
 export enum ComponentLayout {
@@ -11,7 +11,7 @@ export const COMPONENT_LAYOUT_VERTICAL = ComponentLayout.VERTICAL;
 export const COMPONENT_LAYOUT_HORIZONTAL = ComponentLayout.HORIZONTAL;
 export const COMPONENT_LAYOUT_ENTRY = ComponentLayout.ENTRY;
 
-export type LayoutEntry = Component | LayoutList;
+export type LayoutEntry = Projected | LayoutList;
 
 export default class LayoutList {
   _type: ComponentLayout;
@@ -24,7 +24,7 @@ export default class LayoutList {
     this._entries = [];
   }
 
-  setEntry(comp: Component) {
+  setEntry(comp: Projected) {
     if (this._entries[0]) {
       throw new Error("A layout list must not change its entry once set");
     }
@@ -32,14 +32,14 @@ export default class LayoutList {
   }
 
   component() {
-    return this._entries[0] as Component;
+    return this._entries[0] as Projected;
   }
 
   type() {
     return this._type;
   }
 
-  addWithType(comp: Component, layoutType: ComponentLayout) {
+  addWithType(comp: Projected, layoutType: ComponentLayout) {
     if (
       layoutType !== COMPONENT_LAYOUT_HORIZONTAL &&
       layoutType !== COMPONENT_LAYOUT_VERTICAL
@@ -74,8 +74,7 @@ export default class LayoutList {
     if (
       this._type === layoutType ||
       this._entries.length === 0 ||
-      (this._entries.length === 1 &&
-        this._entries[0].type() === COMPONENT_LAYOUT_ENTRY)
+      (this._entries.length === 1 && this._entries[0] instanceof LayoutList)
     ) {
       // console.log("Repurposing list");
       this._type = layoutType;
@@ -90,15 +89,19 @@ export default class LayoutList {
     }
   }
 
-  addVertical(comp: Component) {
+  addVertical(comp: Projected) {
     return this.addWithType(comp, COMPONENT_LAYOUT_VERTICAL);
   }
 
-  addHorizontal(comp: Component) {
+  addHorizontal(comp: Projected) {
     return this.addWithType(comp, COMPONENT_LAYOUT_HORIZONTAL);
   }
 
-  forEach(func: Function, funcThisArg: any, compSize?: Rect) {
+  forEach(
+    func: (comp: Projected, compSize: Rect) => void,
+    funcThisArg: any,
+    compSize?: Rect
+  ): boolean {
     if (this._type === COMPONENT_LAYOUT_ENTRY) {
       return func.call(funcThisArg, this.component(), compSize);
     }
@@ -126,10 +129,10 @@ export default class LayoutList {
     return this._entries.length === 0;
   }
 
-  getPrevious(target: Component): Component {
+  getPrevious(target: Projected): Projected {
     let prior = null;
     if (
-      this.forEach(function (comp: Component) {
+      this.forEach(function (comp: Projected) {
         if (target === comp) {
           return true;
         }
@@ -141,11 +144,11 @@ export default class LayoutList {
     return null;
   }
 
-  getNext(target: Component): Component {
+  getNext(target: Projected): Projected {
     let next = null;
     let found = false;
     if (
-      this.forEach(function (comp: Component) {
+      this.forEach(function (comp: Projected) {
         if (found) {
           next = comp;
           return true;
@@ -160,7 +163,7 @@ export default class LayoutList {
     return null;
   }
 
-  remove(comp: Component) {
+  remove(comp: Projected) {
     if (this._type === COMPONENT_LAYOUT_ENTRY) {
       throw new Error("A layoutList entry cannot remove itself");
     }
@@ -183,7 +186,7 @@ export default class LayoutList {
     return false;
   }
 
-  contains(comp: Component): LayoutList {
+  contains(comp: Projected): LayoutList {
     if (this._type === COMPONENT_LAYOUT_ENTRY) {
       return this.component() === comp ? this : null;
     }

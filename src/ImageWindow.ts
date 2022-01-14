@@ -2,17 +2,12 @@ import Color from "parsegraph-color";
 import { setVFlip } from "parsegraph-matrix";
 import { elapsed } from "parsegraph-timing";
 import Rect from "parsegraph-rect";
-import Component from "./Component";
 import LayoutList, { COMPONENT_LAYOUT_HORIZONTAL } from "./LayoutList";
-import GraphicsWindow, {
-  BACKGROUND_COLOR,
-  MAX_TEXTURE_SIZE,
-} from "./GraphicsWindow";
+import { Projected, BACKGROUND_COLOR, MAX_TEXTURE_SIZE } from "parsegraph-projector";
+import GraphicsWindow from "./GraphicsWindow";
 
 export default class ImageWindow extends GraphicsWindow {
   _backgroundColor: Color;
-  _schedulerFunc: Function;
-  _schedulerFuncThisArg: any;
   _canvas: HTMLCanvasElement;
   _gl: WebGLRenderingContext;
   _shaders: { [id: string]: WebGLProgram };
@@ -23,7 +18,6 @@ export default class ImageWindow extends GraphicsWindow {
   _imageContext: CanvasRenderingContext2D;
   _explicitWidth: number;
   _explicitHeight: number;
-  _focusedComponent: Component;
   _image: HTMLImageElement;
   _fb: WebGLFramebuffer;
   _targetTexture: WebGLTexture;
@@ -37,8 +31,6 @@ export default class ImageWindow extends GraphicsWindow {
     }
     this._backgroundColor = BACKGROUND_COLOR;
 
-    this._schedulerFunc = null;
-    this._schedulerFuncThisArg = null;
 
     // The canvas that will be drawn to.
     this._canvas = document.createElement("canvas");
@@ -100,9 +92,9 @@ export default class ImageWindow extends GraphicsWindow {
     return this._layoutList.count();
   }
 
-  layout(target: Component) {
+  layout(target: Projected) {
     let targetSize = null;
-    this.forEach(function (comp: Component, compSize: Rect) {
+    this.forEach(function (comp: Projected, compSize: Rect) {
       if (target === comp) {
         targetSize = compSize;
         return true;
@@ -125,22 +117,6 @@ export default class ImageWindow extends GraphicsWindow {
     const windowSize = new Rect();
     this.getSize(windowSize);
     return this._layoutList.forEach(func, funcThisArg, windowSize);
-  }
-
-  scheduleUpdate() {
-    // console.log("Window is scheduling update");
-    if (this._schedulerFunc) {
-      this._schedulerFunc.call(this._schedulerFuncThisArg, this);
-    }
-  }
-
-  setOnScheduleUpdate(schedulerFunc: Function, schedulerFuncThisArg?: any) {
-    this._schedulerFunc = schedulerFunc;
-    this._schedulerFuncThisArg = schedulerFuncThisArg;
-  }
-
-  id() {
-    return this._id;
   }
 
   shaders() {
@@ -174,7 +150,7 @@ export default class ImageWindow extends GraphicsWindow {
         }
       }
     }
-    this.forEach(function (comp: Component) {
+    this.forEach(function (comp: Projected) {
       if (comp.contextChanged) {
         comp.contextChanged(isLost);
       }
@@ -238,7 +214,7 @@ export default class ImageWindow extends GraphicsWindow {
     const startTime = new Date();
     const compCount = this.numComponents();
     while (timeout > 0) {
-      this.forEach(function (comp: Component) {
+      this.forEach(function (comp: Projected) {
         needsUpdate = comp.paint(timeout / compCount) || needsUpdate;
       }, this);
       timeout = Math.max(0, timeout - elapsed(startTime));
