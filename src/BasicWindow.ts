@@ -1,6 +1,6 @@
 import Rect from "parsegraph-rect";
-import {Projected} from "parsegraph-projector";
-import {Renderable} from "parsegraph-timingbelt";
+import { Projected } from "parsegraph-projector";
+import { Renderable } from "parsegraph-timingbelt";
 
 /**
  * A BasicWindow displays Projected using 2D, 3D, or DOM-based rendering.

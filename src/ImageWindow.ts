@@ -3,7 +3,11 @@ import { setVFlip } from "parsegraph-matrix";
 import { elapsed } from "parsegraph-timing";
 import Rect from "parsegraph-rect";
 import LayoutList, { COMPONENT_LAYOUT_HORIZONTAL } from "./LayoutList";
-import { Projected, BACKGROUND_COLOR, MAX_TEXTURE_SIZE } from "parsegraph-projector";
+import {
+  Projected,
+  BACKGROUND_COLOR,
+  MAX_TEXTURE_SIZE,
+} from "parsegraph-projector";
 import GraphicsWindow from "./GraphicsWindow";
 
 export default class ImageWindow extends GraphicsWindow {
@@ -30,7 +34,6 @@ export default class ImageWindow extends GraphicsWindow {
       );
     }
     this._backgroundColor = BACKGROUND_COLOR;
-
 
     // The canvas that will be drawn to.
     this._canvas = document.createElement("canvas");

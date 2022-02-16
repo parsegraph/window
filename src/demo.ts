@@ -17,7 +17,7 @@ class TestProjectedSlice {
     this._input = new Input(
       projector.glProvider().canvas(),
       projector.getDOMContainer(),
-      (eventType:string, inputData:any) => {
+      (eventType: string, inputData: any) => {
         if (eventType === "mouseup") {
           const clickX = projected.testSize().clickX();
           const clickY = projected.testSize().clickY();
@@ -51,7 +51,7 @@ class TestProjectedSlice {
     return this.projected().window();
   }
 
-  paint(_:number) {
+  paint(_: number) {
     console.log("Painting");
     const container = this._projector.getDOMContainer();
     const d = document.createElement("div");
@@ -68,21 +68,18 @@ class TestProjectedSlice {
     return false;
   }
 
-  unmount() {
+  unmount() {}
 
-  }
-
-  contextChanged(_:boolean) {
-  }
+  contextChanged(_: boolean) {}
 }
 
 class TestSize {
-  _clickX:number;
-  _clickY:number;
-  _clickSize:number;
-  _size:number;
+  _clickX: number;
+  _clickY: number;
+  _clickSize: number;
+  _size: number;
 
-  constructor(clickX:number, clickY:number, clickSize: number, size:number) {
+  constructor(clickX: number, clickY: number, clickSize: number, size: number) {
     this._clickX = clickX;
     this._clickY = clickY;
     this._clickSize = clickSize;
@@ -107,13 +104,13 @@ class TestSize {
 }
 
 class TestProjected implements Projected {
-  _slices:Map<Projector, TestProjectedSlice>;
-  _window:BasicWindow;
+  _slices: Map<Projector, TestProjectedSlice>;
+  _window: BasicWindow;
   _color: string;
   _onScheduleUpdate: Method;
   _testSize: TestSize;
 
-  constructor(window:BasicWindow, color: string, testSize: TestSize) {
+  constructor(window: BasicWindow, color: string, testSize: TestSize) {
     this._window = window;
     this._slices = new Map();
     this._color = color;
@@ -141,7 +138,7 @@ class TestProjected implements Projected {
     this._slices.get(projector).contextChanged(isLost);
   }
 
-  setOnScheduleUpdate(func:Function, funcObj:any) {
+  setOnScheduleUpdate(func: Function, funcObj: any) {
     this._onScheduleUpdate.set(func, funcObj);
   }
 
@@ -149,14 +146,14 @@ class TestProjected implements Projected {
     return this._window;
   }
 
-  paint(projector:Projector, timeout?:number) {
+  paint(projector: Projector, timeout?: number) {
     if (!this._slices.has(projector)) {
       this._slices.set(projector, new TestProjectedSlice(this, projector));
     }
     return this._slices.get(projector).paint(timeout);
   }
 
-  render(projector: Projector):boolean {
+  render(projector: Projector): boolean {
     console.log("Rendering");
     const ctx = projector.overlay();
     ctx.font = "34px serif";

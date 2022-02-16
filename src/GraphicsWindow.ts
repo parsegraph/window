@@ -2,7 +2,12 @@ import LayoutList, { COMPONENT_LAYOUT_HORIZONTAL } from "./LayoutList";
 import Rect from "parsegraph-rect";
 import { elapsed } from "parsegraph-timing";
 import Color from "parsegraph-color";
-import {BasicProjector, SharedProjector, Projected, Projection } from "parsegraph-projector";
+import {
+  BasicProjector,
+  SharedProjector,
+  Projected,
+  Projection,
+} from "parsegraph-projector";
 
 import BasicWindow from "./BasicWindow";
 
@@ -29,7 +34,7 @@ export default class GraphicsWindow implements BasicWindow {
     return this.projector().container();
   }
 
-  setExplicitSize(width:number, height:number) {
+  setExplicitSize(width: number, height: number) {
     return this.projector().glProvider().setExplicitSize(width, height);
   }
 

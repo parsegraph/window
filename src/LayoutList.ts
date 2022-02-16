@@ -1,4 +1,4 @@
-import {Projected} from "parsegraph-projector";
+import { Projected } from "parsegraph-projector";
 import Rect from "parsegraph-rect";
 
 export enum ComponentLayout {
