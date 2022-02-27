@@ -1,5 +1,5 @@
 var assert = require("assert");
-import Window, { ProxyComponent } from "../src/index.main";
+import Window, { ProxyComponent } from "../src/index";
 
 describe("Window", function () {
   it("can be constructed", () => {
