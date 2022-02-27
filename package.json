@@ -55,5 +55,14 @@
   },
   "peerDependencies": {
     "parsegraph-checkglerror": "^1.5.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.3.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21",
+    "babel-jest": "^27.5.1",
+    "chai": "^4.3.6",
+    "jest": "^27.5.1",
+    "typedoc": "^0.22.12"
   }
 }
