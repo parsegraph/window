@@ -202,9 +202,7 @@ document.addEventListener("DOMContentLoaded", () => {
   belt.addRenderable(wind);
   const size = 500;
   wind.setExplicitSize(size, size);
-  wind.setBackground(
-    new Color(Math.random(), Math.random(), Math.random(), 1)
-  );
+  wind.setBackground(new Color(Math.random(), Math.random(), Math.random(), 1));
 
   const testSize = new TestSize(250, 50, 10, size);
   ["#000", "#f00", "#ff0", "#0f0"].forEach((color) => {

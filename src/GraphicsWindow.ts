@@ -3,7 +3,6 @@ import Rect from "parsegraph-rect";
 import { elapsed } from "parsegraph-timing";
 import Color from "parsegraph-color";
 import {
-  BasicProjector,
   SharedProjector,
   Projector,
   Projected,
@@ -118,7 +117,7 @@ export default class GraphicsWindow implements BasicWindow {
     comp.setOnScheduleUpdate(null, null);
     if (this._projections.has(comp)) {
       const projections = this._projections.get(comp);
-      projections.forEach(projection=>projection.unmount());
+      projections.forEach((projection) => projection.unmount());
       this._projections.delete(comp);
     }
   }
@@ -147,16 +146,15 @@ export default class GraphicsWindow implements BasicWindow {
     }
 
     if (!this._projections.get(comp).has(proj)) {
-      this._projections.get(comp).set(
-        proj,
-        new Projection(new SharedProjector(proj), comp)
-      );
+      this._projections
+        .get(comp)
+        .set(proj, new Projection(new SharedProjector(proj), comp));
       comp.setOnScheduleUpdate(this.scheduleUpdate, this);
       this.scheduleUpdate();
     }
   }
 
-  paint(proj:Projector, timeout: number) {
+  paint(proj: Projector, timeout: number) {
     let needsUpdate = false;
     const startTime = new Date();
     const compCount = this.numComponents();
@@ -164,7 +162,8 @@ export default class GraphicsWindow implements BasicWindow {
       this.forEach((comp: Projected) => {
         this.addProjection(proj, comp);
         needsUpdate =
-          this.projectionFor(proj, comp).paint(timeout / compCount) || needsUpdate;
+          this.projectionFor(proj, comp).paint(timeout / compCount) ||
+          needsUpdate;
       }, this);
       timeout = Math.max(0, timeout - elapsed(startTime));
     }
@@ -197,7 +196,7 @@ export default class GraphicsWindow implements BasicWindow {
   }
 
   unmount(projector: Projector) {
-    this._projections.forEach(projectedMap=>{
+    this._projections.forEach((projectedMap) => {
       const projection = projectedMap.get(projector);
       if (projection) {
         projection.unmount();
@@ -207,8 +206,8 @@ export default class GraphicsWindow implements BasicWindow {
   }
 
   dispose() {
-    this._projections.forEach(projectedMap=>{
-      projectedMap.forEach(projection=>projection.unmount());
+    this._projections.forEach((projectedMap) => {
+      projectedMap.forEach((projection) => projection.unmount());
     });
     this._projections.clear();
   }
