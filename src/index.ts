@@ -7,7 +7,6 @@ import LayoutList, {
 
 import GraphicsWindow from "./GraphicsWindow";
 
-import ImageWindow from "./ImageWindow";
 import BasicWindow from "./BasicWindow";
 
 export {
@@ -17,7 +16,6 @@ export {
   COMPONENT_LAYOUT_VERTICAL,
   ComponentLayout,
   GraphicsWindow,
-  ImageWindow,
   BasicWindow,
 };
 
