@@ -1,5 +1,5 @@
 var assert = require("assert");
-import Window, { ProxyComponent } from "../dist/parsegraph-window.main";
+import Window, { ProxyComponent } from "../src/index.main";
 
 describe("Window", function () {
   it("can be constructed", () => {
