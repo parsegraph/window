@@ -1,4 +1,4 @@
-var assert = require("assert");
+const assert = require("assert");
 import Window, { ProxyComponent } from "../src/index";
 
 describe("Window", function () {
@@ -37,7 +37,7 @@ describe("Window", function () {
       return elem.parentNode === parent || elem.parentElement === parent;
     };
     const isAncestorOf = (parent, elem) => {
-      //console.log("Checking if ", parent, "is ancestor of ", elem);
+      // console.log("Checking if ", parent, "is ancestor of ", elem);
       if (!parent || !elem) {
         return false;
       }
