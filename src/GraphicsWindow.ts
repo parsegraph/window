@@ -5,49 +5,48 @@ import Color from "parsegraph-color";
 import {
   BasicProjector,
   SharedProjector,
+  Projector,
   Projected,
   Projection,
 } from "parsegraph-projector";
 
 import BasicWindow from "./BasicWindow";
 
+// Background color.
+const BACKGROUND_COLOR = new Color(
+  // 0, 47 / 255, 57 / 255, 1,
+  // 256/255, 255/255, 255/255, 1
+  0,
+  0,
+  0,
+  1
+  // 45/255, 84/255, 127/255, 1
+);
+
 export default class GraphicsWindow implements BasicWindow {
   _schedulerFunc: () => void;
   _schedulerFuncThisArg: object;
   _layoutList: LayoutList;
-  _projector: BasicProjector;
-  _projections: Map<Projected, Projection>;
+  _projections: Map<Projected, Map<Projector, Projection>>;
+  _backgroundColor: Color;
 
-  constructor(backgroundColor?: Color) {
-    this._projector = new BasicProjector(backgroundColor);
-    this._projector.setOnScheduleUpdate(this.scheduleUpdate, this);
-
+  constructor() {
     this._schedulerFunc = null;
     this._schedulerFuncThisArg = null;
 
     this._layoutList = new LayoutList(COMPONENT_LAYOUT_HORIZONTAL);
 
     this._projections = new Map();
+
+    this._backgroundColor = BACKGROUND_COLOR;
   }
 
-  container() {
-    return this.projector().container();
-  }
-
-  setExplicitSize(width: number, height: number) {
-    return this.projector().glProvider().setExplicitSize(width, height);
-  }
-
-  projectionFor(comp: Projected): Projection {
-    return this._projections.get(comp);
-  }
-
-  projector() {
-    return this._projector;
+  projectionFor(proj: Projector, comp: Projected): Projection {
+    return this._projections.get(comp)?.get(proj);
   }
 
   setBackground(bg: Color) {
-    this.projector().glProvider().setBackground(bg);
+    this._backgroundColor = bg;
     this.scheduleUpdate();
   }
 
@@ -70,9 +69,7 @@ export default class GraphicsWindow implements BasicWindow {
   }
 
   forEach(func: (comp: Projected, compSize: Rect) => void, funcThisArg?: any) {
-    const windowSize = new Rect();
-    this.projector().glProvider().getSize(windowSize);
-    return this._layoutList.forEach(func, funcThisArg, windowSize);
+    return this._layoutList.forEach(func, funcThisArg);
   }
 
   protected scheduleUpdate() {
@@ -87,15 +84,8 @@ export default class GraphicsWindow implements BasicWindow {
     this._schedulerFuncThisArg = schedulerFuncThisArg;
   }
 
-  onContextChanged(isLost: boolean): void {
-    this.projector().glProvider().onContextChanged(isLost);
-    this.forEach((comp: Projected) => {
-      comp.contextChanged(this.projectionFor(comp).projector(), isLost);
-    }, this);
-  }
-
   addHorizontal(comp: Projected, other: Projected) {
-    this.createProjector(comp);
+    this.addComponent(comp);
     if (!other) {
       this._layoutList.addHorizontal(comp);
       return;
@@ -108,7 +98,7 @@ export default class GraphicsWindow implements BasicWindow {
   }
 
   addVertical(comp: Projected, other: Projected) {
-    this.createProjector(comp);
+    this.addComponent(comp);
     if (!other) {
       this._layoutList.addVertical(comp);
       return;
@@ -120,24 +110,15 @@ export default class GraphicsWindow implements BasicWindow {
     container.addVertical(comp);
   }
 
-  private createProjector(comp: Projected) {
-    if (this.projectionFor(comp)) {
-      return;
-    }
-
-    this._projections.set(
-      comp,
-      new Projection(new SharedProjector(this.projector()), comp)
-    );
-    comp.setOnScheduleUpdate(this.scheduleUpdate, this);
-    this.scheduleUpdate();
+  private addComponent(comp: Projected) {
+    this._projections.set(comp, new Map());
   }
 
   private removeComponentContainer(comp: Projected) {
     comp.setOnScheduleUpdate(null, null);
     if (this._projections.has(comp)) {
       const projections = this._projections.get(comp);
-      (projections.projector() as SharedProjector).unmount();
+      projections.forEach(projection=>projection.unmount());
       this._projections.delete(comp);
     }
   }
@@ -156,28 +137,56 @@ export default class GraphicsWindow implements BasicWindow {
     return needsUpdate;
   }
 
-  paint(timeout: number) {
+  private addProjection(proj: Projector, comp: Projected) {
+    if (this.projectionFor(proj, comp)) {
+      return;
+    }
+
+    if (!this._projections.get(comp)) {
+      this._projections.set(comp, new Map());
+    }
+
+    if (!this._projections.get(comp).has(proj)) {
+      this._projections.get(comp).set(
+        proj,
+        new Projection(new SharedProjector(proj), comp)
+      );
+      comp.setOnScheduleUpdate(this.scheduleUpdate, this);
+      this.scheduleUpdate();
+    }
+  }
+
+  paint(proj:Projector, timeout: number) {
     let needsUpdate = false;
     const startTime = new Date();
     const compCount = this.numComponents();
     while (timeout > 0) {
       this.forEach((comp: Projected) => {
+        this.addProjection(proj, comp);
         needsUpdate =
-          this.projectionFor(comp).paint(timeout / compCount) || needsUpdate;
+          this.projectionFor(proj, comp).paint(timeout / compCount) || needsUpdate;
       }, this);
       timeout = Math.max(0, timeout - elapsed(startTime));
     }
     return needsUpdate;
   }
 
-  render() {
-    let needsUpdate = this.projector().render();
+  render(proj: Projector) {
+    let needsUpdate = proj.render();
+
+    const gl = proj.glProvider().gl();
+    gl.clearColor(
+      this._backgroundColor.r(),
+      this._backgroundColor.g(),
+      this._backgroundColor.b(),
+      this._backgroundColor.a()
+    );
 
     this.forEach((comp: Projected, compSize: Rect) => {
       // console.log("Rendering: " + comp.peer().id());
       // console.log("Rendering component of size " +
       // compSize.width() + "x" + compSize.height());
-      const projection = this.projectionFor(comp);
+      const projection = this.projectionFor(proj, comp);
       projection.setClip(compSize);
       projection.prepareClip();
       needsUpdate = projection.render() || needsUpdate;
@@ -185,5 +194,22 @@ export default class GraphicsWindow implements BasicWindow {
     }, this);
 
     return needsUpdate;
+  }
+
+  unmount(projector: Projector) {
+    this._projections.forEach(projectedMap=>{
+      const projection = projectedMap.get(projector);
+      if (projection) {
+        projection.unmount();
+      }
+      projectedMap.delete(projector);
+    });
+  }
+
+  dispose() {
+    this._projections.forEach(projectedMap=>{
+      projectedMap.forEach(projection=>projection.unmount());
+    });
+    this._projections.clear();
   }
 }
