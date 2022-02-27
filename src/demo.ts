@@ -3,7 +3,12 @@ import BasicWindow from "./BasicWindow";
 import GraphicsWindow from "./GraphicsWindow";
 import TimingBelt from "parsegraph-timingbelt";
 import Input from "parsegraph-input";
-import { Projector, Projected } from "parsegraph-projector";
+import {
+  Projector,
+  Projection,
+  Projected,
+  BasicProjector,
+} from "parsegraph-projector";
 import Method from "parsegraph-method";
 
 class TestProjectedSlice {
@@ -111,7 +116,7 @@ class TestProjected implements Projected {
   _testSize: TestSize;
 
   constructor(window: BasicWindow, color: string, testSize: TestSize) {
-    this._window = window;
+    this._wind = window;
     this._slices = new Map();
     this._color = color;
     this._onScheduleUpdate = new Method();
@@ -124,6 +129,10 @@ class TestProjected implements Projected {
 
   tick() {
     return false;
+  }
+
+  dispose() {
+    this._slices.forEach((slice) => slice.unmount());
   }
 
   unmount(projector: Projector) {
@@ -143,7 +152,7 @@ class TestProjected implements Projected {
   }
 
   window() {
-    return this._window;
+    return this._wind;
   }
 
   paint(projector: Projector, timeout?: number) {
@@ -190,8 +199,11 @@ class TestProjected implements Projected {
 
 document.addEventListener("DOMContentLoaded", () => {
   const belt = new TimingBelt();
+
+  const proj: BasicProjector = new BasicProjector();
   const wind = new GraphicsWindow();
-  document.body.appendChild(wind.container());
+  belt.addRenderable(new Projection(proj, wind));
+  document.body.appendChild(proj.container());
   document.body.appendChild(
     (() => {
       const e = document.createElement("span");
@@ -199,10 +211,9 @@ document.addEventListener("DOMContentLoaded", () => {
       return e;
     })()
   );
-  belt.addRenderable(wind);
   const size = 500;
-  wind.setExplicitSize(size, size);
-  wind.setBackground(new Color(Math.random(), Math.random(), Math.random(), 1));
+  proj.glProvider().setExplicitSize(size, size);
+  wind.setBackground(Color.random());
 
   const testSize = new TestSize(250, 50, 10, size);
   ["#000", "#f00", "#ff0", "#0f0"].forEach((color) => {
