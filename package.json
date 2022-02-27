@@ -54,7 +54,8 @@
     "webpack-cli": "^4.9.1"
   },
   "peerDependencies": {
-    "parsegraph-checkglerror": "^1.5.0"
+    "parsegraph-checkglerror": "^1.5.2",
+    "parsegraph-log": "^1.7.2"
   },
   "devDependencies": {
     "@types/chai": "^4.3.0",
