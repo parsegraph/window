@@ -105,7 +105,7 @@ class TestSize {
 
 class TestProjected implements Projected {
   _slices: Map<Projector, TestProjectedSlice>;
-  _window: BasicWindow;
+  _wind: BasicWindow;
   _color: string;
   _onScheduleUpdate: Method;
   _testSize: TestSize;
@@ -190,8 +190,8 @@ class TestProjected implements Projected {
 
 document.addEventListener("DOMContentLoaded", () => {
   const belt = new TimingBelt();
-  const window = new GraphicsWindow();
-  document.body.appendChild(window.container());
+  const wind = new GraphicsWindow();
+  document.body.appendChild(wind.container());
   document.body.appendChild(
     (() => {
       const e = document.createElement("span");
@@ -199,15 +199,15 @@ document.addEventListener("DOMContentLoaded", () => {
       return e;
     })()
   );
-  belt.addRenderable(window);
+  belt.addRenderable(wind);
   const size = 500;
-  window.setExplicitSize(size, size);
-  window.setBackground(
+  wind.setExplicitSize(size, size);
+  wind.setBackground(
     new Color(Math.random(), Math.random(), Math.random(), 1)
   );
 
   const testSize = new TestSize(250, 50, 10, size);
   ["#000", "#f00", "#ff0", "#0f0"].forEach((color) => {
-    window.addVertical(new TestProjected(window, color, testSize), null);
+    wind.addVertical(new TestProjected(wind, color, testSize), null);
   });
 });
