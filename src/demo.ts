@@ -3,6 +3,7 @@ import BasicWindow from "./BasicWindow";
 import GraphicsWindow from "./GraphicsWindow";
 import TimingBelt from "parsegraph-timingbelt";
 import Input from "parsegraph-input";
+import { BasicGLProvider } from "parsegraph-compileprogram";
 import {
   Projector,
   Projection,
@@ -200,7 +201,10 @@ class TestProjected implements Projected {
 document.addEventListener("DOMContentLoaded", () => {
   const belt = new TimingBelt();
 
-  const proj: BasicProjector = new BasicProjector();
+  const provider = new BasicGLProvider();
+  const size = 500;
+  provider.setExplicitSize(size, size);
+  const proj: BasicProjector = new BasicProjector(provider);
   const wind = new GraphicsWindow();
   belt.addRenderable(new Projection(proj, wind));
 
@@ -213,8 +217,6 @@ document.addEventListener("DOMContentLoaded", () => {
       return e;
     })()
   );
-  const size = 500;
-  proj.glProvider().setExplicitSize(size, size);
   wind.setBackground(Color.random());
 
   const testSize = new TestSize(250, 50, 10, size);
