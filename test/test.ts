@@ -35,9 +35,15 @@ class ProxyComponent implements Projected {
   }
 
   dispose() {
+    this._elems.forEach(elem=>elem.remove());
+    this._elems.clear();
   }
 
-  unmount() {
+  unmount(projector: Projector) {
+    if (this._elems.has(projector)) {
+      this._elems.get(projector).remove();
+      this._elems.delete(projector);
+    }
   }
 
   setOnScheduleUpdate(func: Function, funcObj: any) {
@@ -50,7 +56,10 @@ class ProxyComponent implements Projected {
 
   paint(projector: Projector) {
     if (!this._elems.has(projector)) {
-      this._elems.set(projector, document.createElement("div"));
+      console.log("Appending to container");
+      const elem = document.createElement("div");
+      projector.getDOMContainer().appendChild(elem);
+      this._elems.set(projector, elem);
     }
     return false;
   }
@@ -67,15 +76,15 @@ class ProxyComponent implements Projected {
 
 describe("Window", function () {
   it("can be constructed", () => {
-    assert.ok(new GraphicsWindow());
+    assert.isNotNull(new GraphicsWindow());
   });
 
   it("can add and remove components", () => {
     const win = new GraphicsWindow();
     const comp = new ProxyComponent();
     win.addHorizontal(comp);
-    assert.ok(win.removeComponent(comp));
-    assert.ok(!win.removeComponent(comp));
+    assert.isTrue(win.removeComponent(comp));
+    assert.isFalse(win.removeComponent(comp));
   });
 
   it("has an element container for a component", () => {
@@ -83,10 +92,10 @@ describe("Window", function () {
     const comp = new ProxyComponent();
     win.addVertical(comp);
     const proj = new BasicProjector();
-    win.paint(proj, 0);
+    win.paint(proj, 10);
     const container = win.projectionFor(proj, comp);
-    assert.ok(container);
-    assert.ok(container === win.projectionFor(proj, comp));
+    assert.isNotNull(container);
+    assert.isTrue(container === win.projectionFor(proj, comp));
   });
 
   it("actually adds an element to the window's container", () => {
@@ -94,9 +103,13 @@ describe("Window", function () {
     const comp = new ProxyComponent();
     win.addHorizontal(comp);
     const proj = new BasicProjector();
-    win.paint(proj, 0);
-    assert.ok(win.projectionFor(proj, comp));
-    assert.ok(isAncestorOf(proj.container(), comp.getElem(proj)));
+    win.paint(proj, 10);
+    const projection = win.projectionFor(proj, comp);
+    assert.isNotNull(projection);
+
+    const elem = comp.getElem(projection.projector());
+    assert.isNotNull(elem);
+    assert.isTrue(isAncestorOf(projection.projector().getDOMContainer(), elem));
   });
 
   it("removes an element container from a component", () => {
@@ -104,11 +117,14 @@ describe("Window", function () {
     const comp = new ProxyComponent();
     win.addHorizontal(comp);
     const proj = new BasicProjector();
-    win.paint(proj, 0);
-    assert.ok(win.projectionFor(proj, comp));
-    const elem = comp.getElem(proj);
-    assert.ok(isAncestorOf(proj.container(), elem));
-    assert.ok(win.removeComponent(comp));
-    assert.ok(!isAncestorOf(proj.container(), elem));
+    win.paint(proj, 10);
+    const projection = win.projectionFor(proj, comp);
+    assert.isNotNull(projection);
+
+    const elem = comp.getElem(projection.projector());
+    assert.isNotNull(elem);
+    assert.isTrue(isAncestorOf(projection.projector().getDOMContainer(), elem));
+    assert.isNotNull(win.removeComponent(comp));
+    assert.isFalse(isAncestorOf(projection.projector().getDOMContainer(), elem));
   });
 });
