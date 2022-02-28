@@ -1,13 +1,13 @@
-const assert = require("assert");
-import { BasicProjector, Projector, Projected } from 'parsegraph-projector';
+const { assert } = require("chai");
+import { BasicProjector, Projector, Projected } from "parsegraph-projector";
 import GraphicsWindow from "../src/index";
 import Method from "parsegraph-method";
 
-const isParentOf = (parent:Element, elem:Element) => {
+const isParentOf = (parent: Element, elem: Element) => {
   return elem.parentNode === parent || elem.parentElement === parent;
 };
 
-const isAncestorOf = (parent:Element, elem:Element) => {
+const isAncestorOf = (parent: Element, elem: Element) => {
   // console.log("Checking if ", parent, "is ancestor of ", elem);
   if (!parent || !elem) {
     return false;
@@ -22,7 +22,7 @@ const isAncestorOf = (parent:Element, elem:Element) => {
 class ProxyComponent implements Projected {
   _color: string;
   _onScheduleUpdate: Method;
-  _elems:Map<Projector, HTMLElement>;
+  _elems: Map<Projector, HTMLElement>;
 
   constructor(color: string = "") {
     this._color = color;
