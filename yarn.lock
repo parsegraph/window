@@ -4155,11 +4155,6 @@ parse5@6.0.1:
   resolved "https://registry.yarnpkg.com/parse5/-/parse5-6.0.1.tgz#e1a1c085c569b3dc08321184f19a39cc27f7c30b"
   integrity sha512-Ofn/CTFzRGTTxwpNEs9PP93gXShHcTq255nzRYSKe8AkVpZY7e1fpmTfOyoIvjP5HG7Z2ZM7VS9PPhQGW2pOpw==
 
-parsegraph-checkglerror@^1.5.2:
-  version "1.5.2"
-  resolved "https://registry.yarnpkg.com/parsegraph-checkglerror/-/parsegraph-checkglerror-1.5.2.tgz#f47cbfeb785ba4c65b03465fbccde4be9659b617"
-  integrity sha512-sGzX99/LeHCNOayN4eApik6OTu/gBxh/9WJp+AvQFhwDzpAiAXNXqqWM3+rnHCWTBufPL6fpX/c/OsbTJY73Cw==
-
 parsegraph-color@^1.4.6:
   version "1.4.6"
   resolved "https://registry.yarnpkg.com/parsegraph-color/-/parsegraph-color-1.4.6.tgz#678f464cc531e19b7bdf4480135e37dd858520bd"
@@ -4188,11 +4183,6 @@ parsegraph-input@^1.6.3:
     parsegraph-matrix "^1.4.10"
     parsegraph-normalizewheel "^1.4.6"
 
-parsegraph-log@^1.7.2:
-  version "1.7.2"
-  resolved "https://registry.yarnpkg.com/parsegraph-log/-/parsegraph-log-1.7.2.tgz#26dd304e8f1ea2c0d413170ae518ef0a2130a495"
-  integrity sha512-j2nYy9l5A4047maMuyp01oU3c2QB0mjm5qON7aSbjpMDqSkHes4puxMEMo32w0GcYej08MmrelqVn0sk1TogDw==
-
 parsegraph-matrix@^1.4.10:
   version "1.4.10"
   resolved "https://registry.yarnpkg.com/parsegraph-matrix/-/parsegraph-matrix-1.4.10.tgz#d73b665839d2eca693ab93bfe6b1ddf24084a408"
@@ -4208,10 +4198,10 @@ parsegraph-normalizewheel@^1.4.4, parsegraph-normalizewheel@^1.4.6:
   resolved "https://registry.yarnpkg.com/parsegraph-normalizewheel/-/parsegraph-normalizewheel-1.4.6.tgz#9f64ff45d72a5fac73a34946505d0799d54fdb14"
   integrity sha512-B9J2WufswsVvjjRWpO/x2GhjpbE4O/gQjkkW2l4HaIjeJYecf00QE5QULjIanmRk+87qFpYtOstu7oWson/llQ==
 
-parsegraph-projector@^1.8.4:
-  version "1.8.4"
-  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.8.4.tgz#86773970898e81bc3dd1020544952813d0c6f449"
-  integrity sha512-NrPlrd6jCjJIf6XIedh+ZsE2E4nBBiPeRwhEWB09tqNu+Rzi5uJOm08UG5xNNakN4/TRipZT9pKBwlaiBr6WUg==
+parsegraph-projector@^1.8.5:
+  version "1.8.5"
+  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.8.5.tgz#9e849b52961d8ea000a51ec9d3366fa57eb882e8"
+  integrity sha512-yOR1Cqh4XiCDfYmNKBzGfX4ylIojgwocO+J0njtTwyp3oqFnCqvWVmC0v5YTkQpZQqMs57cem9JBrZkls5ro7Q==
   dependencies:
     parsegraph-compileprogram "^2.2.3"
     parsegraph-matrix "^1.4.10"
