@@ -83,7 +83,7 @@ export default class GraphicsWindow implements BasicWindow {
     this._schedulerFuncThisArg = schedulerFuncThisArg;
   }
 
-  addHorizontal(comp: Projected, other: Projected) {
+  addHorizontal(comp: Projected, other: Projected = null) {
     this.addComponent(comp);
     if (!other) {
       this._layoutList.addHorizontal(comp);
@@ -96,7 +96,7 @@ export default class GraphicsWindow implements BasicWindow {
     container.addHorizontal(comp);
   }
 
-  addVertical(comp: Projected, other: Projected) {
+  addVertical(comp: Projected, other: Projected = null) {
     this.addComponent(comp);
     if (!other) {
       this._layoutList.addVertical(comp);
