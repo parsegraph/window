@@ -50,8 +50,8 @@
     "webpack-cli": "^4.9.1"
   },
   "peerDependencies": {
-    "parsegraph-checkglerror": "^1.5.2",
-    "parsegraph-log": "^1.7.2"
+    "parsegraph-checkglerror": "^1.5.3",
+    "parsegraph-log": "^1.7.3"
   },
   "dependencies": {
     "parsegraph-color": "^1.4.6",
