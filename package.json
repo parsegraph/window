@@ -54,15 +54,15 @@
     "parsegraph-log": "^1.7.3"
   },
   "dependencies": {
-    "parsegraph-color": "^1.4.6",
-    "parsegraph-compileprogram": "^2.2.3",
-    "parsegraph-input": "^1.6.3",
+    "parsegraph-color": "^1.4.7",
+    "parsegraph-compileprogram": "^2.2.5",
+    "parsegraph-input": "^1.6.5",
     "parsegraph-matrix": "^1.4.10",
     "parsegraph-method": "^1.4.20",
     "parsegraph-normalizewheel": "^1.4.4",
-    "parsegraph-projector": "^1.8.7",
-    "parsegraph-rect": "^1.4.6",
-    "parsegraph-timing": "^1.4.10",
-    "parsegraph-timingbelt": "^1.7.4"
+    "parsegraph-projector": "^1.8.9",
+    "parsegraph-rect": "^1.4.7",
+    "parsegraph-timing": "^1.4.11",
+    "parsegraph-timingbelt": "^1.7.5"
   }
 }
