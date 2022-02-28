@@ -62,7 +62,7 @@
     "parsegraph-normalizewheel": "^1.4.4",
     "parsegraph-projector": "^1.8.9",
     "parsegraph-rect": "^1.4.7",
-    "parsegraph-timing": "^1.4.11",
+    "parsegraph-timing": "^1.4.12",
     "parsegraph-timingbelt": "^1.7.5"
   }
 }
