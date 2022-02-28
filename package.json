@@ -14,7 +14,7 @@
     "url": "https://github.com/parsegraph/window/issues"
   },
   "homepage": "https://github.com/parsegraph/window#readme",
-  "dependencies": {
+  "devDependencies": {
     "@babel/cli": "^7.12.10",
     "@babel/core": "^7.12.10",
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -33,6 +33,29 @@
     "eslint-config-prettier": "^7.2.0",
     "jsdom": "16.4.0",
     "jsdom-global": "3.0.2",
+    "prettier": "2.1.2",
+    "raw-loader": "^4.0.1",
+    "source-map-loader": "^1.0.2",
+    "source-map-support": "^0.5.19",
+    "ts-loader": "^9.2.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "webpack": "^5.64.2",
+    "webpack-cli": "^4.9.1",
+    "@types/chai": "^4.3.0",
+    "@types/jest": "^27.4.1",
+    "@types/node": "^17.0.21",
+    "babel-jest": "^27.5.1",
+    "chai": "^4.3.6",
+    "jest": "^27.5.1",
+    "resize-observer-polyfill": "^1.5.1",
+    "typedoc": "^0.22.12"
+  },
+  "peerDependencies": {
+    "parsegraph-checkglerror": "^1.5.2",
+    "parsegraph-log": "^1.7.2"
+  },
+  "dependencies": {
     "parsegraph-color": "^1.4.6",
     "parsegraph-compileprogram": "^2.1.1",
     "parsegraph-input": "^1.6.3",
@@ -42,28 +65,6 @@
     "parsegraph-projector": "^1.7.7",
     "parsegraph-rect": "^1.4.6",
     "parsegraph-timing": "^1.4.9",
-    "parsegraph-timingbelt": "^1.7.3",
-    "prettier": "2.1.2",
-    "raw-loader": "^4.0.1",
-    "source-map-loader": "^1.0.2",
-    "source-map-support": "^0.5.19",
-    "ts-loader": "^9.2.6",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.1.3",
-    "webpack": "^5.64.2",
-    "webpack-cli": "^4.9.1"
-  },
-  "peerDependencies": {
-    "parsegraph-checkglerror": "^1.5.2",
-    "parsegraph-log": "^1.7.2"
-  },
-  "devDependencies": {
-    "@types/chai": "^4.3.0",
-    "@types/jest": "^27.4.1",
-    "@types/node": "^17.0.21",
-    "babel-jest": "^27.5.1",
-    "chai": "^4.3.6",
-    "jest": "^27.5.1",
-    "typedoc": "^0.22.12"
+    "parsegraph-timingbelt": "^1.7.3"
   }
 }
