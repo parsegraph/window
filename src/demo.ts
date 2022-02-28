@@ -203,8 +203,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const proj: BasicProjector = new BasicProjector();
   const wind = new GraphicsWindow();
   belt.addRenderable(new Projection(proj, wind));
-  document.body.appendChild(proj.container());
-  document.body.appendChild(
+
+  const root = document.getElementById("demo");
+  root.appendChild(proj.container());
+  root.appendChild(
     (() => {
       const e = document.createElement("span");
       e.innerHTML = "content with element";
