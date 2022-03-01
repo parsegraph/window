@@ -15,6 +15,10 @@ const hasShaderFiles = ()=>{
   return hasFiles("glsl");
 }
 
+const hasCSSFiles = ()=>{
+  return hasFiles("css");
+}
+
 const hasCSVFiles = ()=>{
   return hasFiles("csv") || hasFiles("tsv") || hasFiles("txt");
 }
@@ -97,6 +101,13 @@ const webpackConfig = (prod)=>{
     extensions.push(".tsv");
     extensions.push(".txt");
     extensions.push(".csv");
+  }
+  if (hasCSSFiles()) {
+    rules.push({
+      test: /\.(css)$/,
+      use: ["raw-loader"],
+    });
+    extensions.push(".css");
   }
 
   return {
