@@ -4495,11 +4495,6 @@ parsegraph-input@^1.6.5:
     parsegraph-matrix "^1.4.11"
     parsegraph-normalizewheel "^1.4.7"
 
-parsegraph-log@^1.7.3:
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/parsegraph-log/-/parsegraph-log-1.7.3.tgz#26ad2058833679439e5668e7d8a1c80c59c06ac8"
-  integrity sha512-uYC4Gnuo+sPheo45bkZ5ehqAzyHDFqqIr7k4OZcQ7hTSiMCmHaiJFYhJpvOPOJrUWw7xwJt1G6e2U0korekwLg==
-
 parsegraph-matrix@^1.4.10:
   version "1.4.10"
   resolved "https://registry.yarnpkg.com/parsegraph-matrix/-/parsegraph-matrix-1.4.10.tgz#d73b665839d2eca693ab93bfe6b1ddf24084a408"
