@@ -56,14 +56,14 @@
   },
   "dependencies": {
     "parsegraph-color": "^1.4.7",
-    "parsegraph-compileprogram": "^2.2.8",
+    "parsegraph-compileprogram": "^2.2.9",
     "parsegraph-input": "^1.6.5",
     "parsegraph-matrix": "^1.4.10",
-    "parsegraph-method": "^1.4.20",
+    "parsegraph-method": "^1.4.22",
     "parsegraph-normalizewheel": "^1.4.4",
-    "parsegraph-projector": "^1.8.12",
+    "parsegraph-projector": "^1.8.13",
     "parsegraph-rect": "^1.4.7",
-    "parsegraph-timing": "^1.4.15",
-    "parsegraph-timingbelt": "^1.7.9"
+    "parsegraph-timing": "^1.4.16",
+    "parsegraph-timingbelt": "^1.7.10"
   }
 }
