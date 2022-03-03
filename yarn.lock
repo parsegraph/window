@@ -4109,17 +4109,17 @@ parsegraph-normalizewheel@^1.4.7:
   resolved "https://registry.yarnpkg.com/parsegraph-normalizewheel/-/parsegraph-normalizewheel-1.4.7.tgz#a7643a28597a0b275e3d4bfe15c7eb60372b915f"
   integrity sha512-F0nTb+hZVBAZ4d8W+GZ281DDl4Br1U62fHj2oW5xxKfr1E9u/b9K4243FSYNG0XfzZzhjYoSIjUwM4ew3KMPZw==
 
-parsegraph-projector@^1.8.14:
-  version "1.8.14"
-  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.8.14.tgz#71fb8427ab38ceed87002ff83d61887a9f78963f"
-  integrity sha512-K6OJ+uiMg5/5XbW5HYg+sCCNo/Q1kqkG7RKn869uNvEMKKxQSh0NW3WkdAfa4XL5HnfMm019X0eiBhN4CmDmpA==
+parsegraph-projector@^1.8.15:
+  version "1.8.15"
+  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.8.15.tgz#ec59c2df87b2ff3965cf76410fc1b1b69c45f414"
+  integrity sha512-XXoQ6XPnqNvRU7wy84mkhaHUSAczGkq3z7jyIYizSf/omPanioC0AF4gJzyOCcGMkjJX4ivTh3jjaLg1OaVSAA==
   dependencies:
     parsegraph-compileprogram "^2.2.9"
     parsegraph-matrix "^1.4.11"
     parsegraph-method "^1.4.10"
     parsegraph-rect "^1.4.7"
     parsegraph-timing "^1.4.16"
-    parsegraph-timingbelt "^1.7.10"
+    parsegraph-timingbelt "^1.7.11"
 
 parsegraph-rect@^1.4.7:
   version "1.4.7"
@@ -4139,7 +4139,7 @@ parsegraph-timing@^1.4.16:
     parsegraph-gettimeinmillis "^1.4.6"
     parsegraph-method "^1.4.22"
 
-parsegraph-timingbelt@^1.7.10, parsegraph-timingbelt@^1.7.11:
+parsegraph-timingbelt@^1.7.11:
   version "1.7.11"
   resolved "https://registry.yarnpkg.com/parsegraph-timingbelt/-/parsegraph-timingbelt-1.7.11.tgz#03eb3c83eee48cae75ad54e877709872769d3074"
   integrity sha512-QztK1HGZevPZCd7vmuimG+xzqb9HAqEea4VdQSmP6BOSpFjNa3c9418zfQtKmRvMOXaYRs0+ZYMKHw4ClfW6RA==
