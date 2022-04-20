@@ -61,7 +61,7 @@
     "parsegraph-matrix": "^1.4.10",
     "parsegraph-method": "^1.4.22",
     "parsegraph-normalizewheel": "^1.4.4",
-    "parsegraph-projector": "^1.8.17",
+    "parsegraph-projector": "^1.13.1",
     "parsegraph-rect": "^1.4.7",
     "parsegraph-timing": "^1.4.16",
     "parsegraph-timingbelt": "^1.7.11"
