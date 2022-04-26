@@ -4047,10 +4047,10 @@ parsegraph-color@^1.4.7:
   resolved "https://registry.yarnpkg.com/parsegraph-color/-/parsegraph-color-1.4.7.tgz#8aa69bd3c93fa8bcc36f6783893716bd752fba87"
   integrity sha512-ZlinbOlbnDDV9F/cHITmUSyZRCjegoTnsWey0CaZx6w0jEFlB9yQCMo6xBgFHcYBdd3DFf9rWisECc5nedsCXA==
 
-parsegraph-compileprogram@^2.2.9:
-  version "2.2.9"
-  resolved "https://registry.yarnpkg.com/parsegraph-compileprogram/-/parsegraph-compileprogram-2.2.9.tgz#5998b6edfdce7ca9213dd7bd85090cf4e5979d24"
-  integrity sha512-3un9spWrwrgTtn7m/zQX5JO9HTuwt1DSINWBmqIAXba5mQiO6WUZk2BeISOfXto/+ygIcCrF1tnj/Mo0drUuzg==
+parsegraph-compileprogram@^2.2.11, parsegraph-compileprogram@^2.2.9:
+  version "2.2.12"
+  resolved "https://registry.yarnpkg.com/parsegraph-compileprogram/-/parsegraph-compileprogram-2.2.12.tgz#3c6d95c4b20dd37bb370598d2053b76fe96ae449"
+  integrity sha512-naJv26yfCQFmc6CnLsDVEssojHxCALQ2A6MSnp+UjdnwkBeNg3VCCSrOPDNcJyiHkAZUjd6A88iPpmKXPquEzg==
   dependencies:
     parsegraph-color "^1.4.7"
     parsegraph-method "^1.4.22"
@@ -4096,11 +4096,11 @@ parsegraph-normalizewheel@^1.4.7:
   integrity sha512-F0nTb+hZVBAZ4d8W+GZ281DDl4Br1U62fHj2oW5xxKfr1E9u/b9K4243FSYNG0XfzZzhjYoSIjUwM4ew3KMPZw==
 
 parsegraph-projector@^1.13.2:
-  version "1.13.2"
-  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.13.2.tgz#34ba00dad8a299a29ba753eb4c61ee3334963a17"
-  integrity sha512-E8tHPIL0VbFuIxviftzadNZn6vLQIhxe0ELvBTtr8DPCFGVBejdlx6eC3aUgJKFFFLToBE5cTmNjx9g/yluWZQ==
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.13.4.tgz#5582b1c8539ef4651c2a3aa8ae6fa65ee88b1a07"
+  integrity sha512-JabOd/JN2vO4kbBqapUQXxg684dTHPa/5K+sOeR8uRZbJ6Vbx+W5lEHht3lEj2t6HMYLQSAYBhkIOMlNXxsgHQ==
   dependencies:
-    parsegraph-compileprogram "^2.2.9"
+    parsegraph-compileprogram "^2.2.11"
     parsegraph-matrix "^1.4.11"
     parsegraph-method "^1.4.10"
     parsegraph-rect "^1.4.7"
