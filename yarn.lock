@@ -4036,10 +4036,10 @@ parsegraph-normalizewheel@^1.4.7:
   resolved "https://registry.yarnpkg.com/parsegraph-normalizewheel/-/parsegraph-normalizewheel-1.4.7.tgz#a7643a28597a0b275e3d4bfe15c7eb60372b915f"
   integrity sha512-F0nTb+hZVBAZ4d8W+GZ281DDl4Br1U62fHj2oW5xxKfr1E9u/b9K4243FSYNG0XfzZzhjYoSIjUwM4ew3KMPZw==
 
-parsegraph-projector@^1.13.9:
-  version "1.13.9"
-  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.13.9.tgz#e4d5d6da909113c9f9e7228b82877240607f848c"
-  integrity sha512-hlsg6ykvzXuhy8yML8udvZHJfpi4AY1qEx+DZ2Fzsn2qzFXSwX/ctHZCvBvbbVYYljNFcAWx0hav+T5vYlhr5Q==
+parsegraph-projector@^1.13.10:
+  version "1.13.10"
+  resolved "https://registry.yarnpkg.com/parsegraph-projector/-/parsegraph-projector-1.13.10.tgz#c623d9e7447f89f06985ab8b3d768d6d53389d02"
+  integrity sha512-YiHXD4wuviBR9Ghup0PBFLV7sJmqcyoKBK1GuyJ4SZ/JdjP/1sD48449BI0c8cGZ3pdkbnFHxxSjeX2fr2SBTw==
   dependencies:
     parsegraph-compileprogram "^2.2.15"
     parsegraph-matrix "^1.4.12"
