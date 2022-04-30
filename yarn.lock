@@ -4011,11 +4011,6 @@ parsegraph-input@^2.0.4:
     parsegraph-matrix "^1.4.12"
     parsegraph-normalizewheel "^1.4.7"
 
-parsegraph-matrix@^1.4.10:
-  version "1.4.10"
-  resolved "https://registry.yarnpkg.com/parsegraph-matrix/-/parsegraph-matrix-1.4.10.tgz#d73b665839d2eca693ab93bfe6b1ddf24084a408"
-  integrity sha512-LRmS9gi1XY+q7/KMj61ySnXYnd7MK+KPz1Pjk617fWlcSn1NvZIbAzRhkJXeta9SLBuf+GrX2yNg9LgNcqFdKA==
-
 parsegraph-matrix@^1.4.12:
   version "1.4.12"
   resolved "https://registry.yarnpkg.com/parsegraph-matrix/-/parsegraph-matrix-1.4.12.tgz#cde2e2cef52ad5a4f5df3226abcfe3e41d577e98"
@@ -4025,11 +4020,6 @@ parsegraph-method@^1.4.10, parsegraph-method@^1.4.22:
   version "1.4.22"
   resolved "https://registry.yarnpkg.com/parsegraph-method/-/parsegraph-method-1.4.22.tgz#e73605b8f69a6040df3f1e689bde1f26c5b163d2"
   integrity sha512-7l1YOim5QH+Gc/HQYqBGvRPtyf1EwvjHODcYZIyxrQQVbnjkkG1vrhqIpdm3TlfRl2k9YU0BbfDNY9BmyL/UdA==
-
-parsegraph-normalizewheel@^1.4.4:
-  version "1.4.6"
-  resolved "https://registry.yarnpkg.com/parsegraph-normalizewheel/-/parsegraph-normalizewheel-1.4.6.tgz#9f64ff45d72a5fac73a34946505d0799d54fdb14"
-  integrity sha512-B9J2WufswsVvjjRWpO/x2GhjpbE4O/gQjkkW2l4HaIjeJYecf00QE5QULjIanmRk+87qFpYtOstu7oWson/llQ==
 
 parsegraph-normalizewheel@^1.4.7:
   version "1.4.7"
