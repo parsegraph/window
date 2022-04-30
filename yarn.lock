@@ -4066,9 +4066,9 @@ parsegraph-color@^1.4.7:
   integrity sha512-ZlinbOlbnDDV9F/cHITmUSyZRCjegoTnsWey0CaZx6w0jEFlB9yQCMo6xBgFHcYBdd3DFf9rWisECc5nedsCXA==
 
 parsegraph-compileprogram@^2.2.11, parsegraph-compileprogram@^2.2.9:
-  version "2.2.13"
-  resolved "https://registry.yarnpkg.com/parsegraph-compileprogram/-/parsegraph-compileprogram-2.2.13.tgz#714e9956da4967ee32576ed8f457ac08dc5b7b45"
-  integrity sha512-lfWOIJLsSCbHN9SKsXWatCtkxZp33jxQBX5cVho7BG0B5uHujxdCcV1pgW2+AsvDlcB0YlHeIHq9v3MahGo6Tw==
+  version "2.2.14"
+  resolved "https://registry.yarnpkg.com/parsegraph-compileprogram/-/parsegraph-compileprogram-2.2.14.tgz#9ed12ead25f0d783bdb444a879dd837f08ffdbb4"
+  integrity sha512-eXAktMx7yo0rPArz2yLjJ5O1xf+OgROyBQ+Cop0Mys90zjIodJBeKgQ/FFj3mR5Md2KnMMHaKhv71/lNY1zpag==
   dependencies:
     parsegraph-color "^1.4.7"
     parsegraph-method "^1.4.22"
