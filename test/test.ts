@@ -35,7 +35,7 @@ class ProxyComponent implements Projected {
   }
 
   dispose() {
-    this._elems.forEach(elem=>elem.remove());
+    this._elems.forEach((elem) => elem.remove());
     this._elems.clear();
   }
 
@@ -125,6 +125,8 @@ describe("Window", function () {
     assert.isNotNull(elem);
     assert.isTrue(isAncestorOf(projection.projector().getDOMContainer(), elem));
     assert.isNotNull(win.removeComponent(comp));
-    assert.isFalse(isAncestorOf(projection.projector().getDOMContainer(), elem));
+    assert.isFalse(
+      isAncestorOf(projection.projector().getDOMContainer(), elem)
+    );
   });
 });

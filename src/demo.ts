@@ -2,7 +2,7 @@ import Color from "parsegraph-color";
 import BasicWindow from "./BasicWindow";
 import GraphicsWindow from "./GraphicsWindow";
 import TimingBelt from "parsegraph-timingbelt";
-import Input from "parsegraph-input";
+import { BasicMouseController, MouseInput } from "parsegraph-input";
 import { BasicGLProvider } from "parsegraph-compileprogram";
 import {
   Projector,
@@ -12,41 +12,39 @@ import {
 } from "parsegraph-projector";
 import Method from "parsegraph-method";
 
-class TestProjectedSlice {
+class TestProjectedSlice extends BasicMouseController {
   _projected: TestProjected;
   _projector: Projector;
-  _input: Input;
+  _input: MouseInput;
 
   constructor(projected: TestProjected, projector: Projector) {
+    super();
     this._projected = projected;
     this._projector = projector;
-    this._input = new Input(
-      projector.glProvider().canvas(),
-      projector.getDOMContainer(),
-      (eventType: string, inputData: any) => {
-        if (eventType === "mouseup") {
-          const clickX = projected.testSize().clickX();
-          const clickY = projected.testSize().clickY();
-          const clickSize = projected.testSize().clickSize();
-          if (
-            inputData.x < clickX - clickSize / 2 ||
-            inputData.x > clickX + clickSize / 2
-          ) {
-            return false;
-          }
-          if (
-            inputData.y < clickY - clickSize / 2 ||
-            inputData.y > clickY + clickSize / 2
-          ) {
-            return false;
-          }
-          this.window().removeComponent(this.projected());
-          return true;
-        }
-        console.log(eventType, inputData);
-        return false;
-      }
-    );
+    this._input = new MouseInput();
+    this._input.mount(projector.glProvider().canvas());
+    this._input.setControl(this);
+  }
+
+  mouseup(button: any) {
+    super.mouseup(button);
+    const clickX = this._projected.testSize().clickX();
+    const clickY = this._projected.testSize().clickY();
+    const clickSize = this._projected.testSize().clickSize();
+    if (
+      this.lastMouseX() < clickX - clickSize / 2 ||
+      this.lastMouseX() > clickX + clickSize / 2
+    ) {
+      return false;
+    }
+    if (
+      this.lastMouseY() < clickY - clickSize / 2 ||
+      this.lastMouseY() > clickY + clickSize / 2
+    ) {
+      return false;
+    }
+    this.window().removeComponent(this.projected());
+    return true;
   }
 
   projected() {
