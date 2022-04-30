@@ -58,7 +58,7 @@
     "parsegraph-compileprogram": "^2.2.15",
     "parsegraph-input": "^2.0.4",
     "parsegraph-method": "^1.4.22",
-    "parsegraph-projector": "^1.13.10",
+    "parsegraph-projector": "^1.14.0",
     "parsegraph-rect": "^1.5.1",
     "parsegraph-timing": "^1.4.16",
     "parsegraph-timingbelt": "^1.7.11"
