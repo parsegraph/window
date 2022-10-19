@@ -1,6 +1,6 @@
 {
   "name": "parsegraph-window",
-  "version": "1.8.28",
+  "version": "1.8.29",
   "description": "window",
   "main": "dist/src/index.js",
   "types": "dist/src/index.d.ts",
@@ -38,6 +38,8 @@
     "jest": "^28.0.3",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
+    "parsegraph-checkglerror": "^1.5.3",
+    "parsegraph-log": "^1.7.3",
     "prettier": "^2.6.2",
     "raw-loader": "^4.0.2",
     "source-map-loader": "^3.0.1",
@@ -55,12 +57,10 @@
   },
   "dependencies": {
     "parsegraph-color": "^1.4.7",
-    "parsegraph-compileprogram": "^2.2.15",
+    "parsegraph-compileprogram": "^2.2.16",
     "parsegraph-input": "^2.0.4",
     "parsegraph-method": "^1.4.22",
-    "parsegraph-projector": "^1.14.0",
-    "parsegraph-rect": "^1.5.1",
-    "parsegraph-timing": "^1.4.16",
-    "parsegraph-timingbelt": "^1.7.11"
+    "parsegraph-projector": "^1.14.2",
+    "parsegraph-rect": "^1.5.1"
   }
 }
