@@ -56,11 +56,9 @@
     "parsegraph-log": "^1.7.3"
   },
   "dependencies": {
-    "parsegraph-color": "^1.4.7",
-    "parsegraph-compileprogram": "^2.2.16",
     "parsegraph-input": "^2.0.4",
     "parsegraph-method": "^1.4.22",
-    "parsegraph-projector": "^1.14.2",
+    "parsegraph-projector": "^1.14.3",
     "parsegraph-rect": "^1.5.1"
   }
 }
