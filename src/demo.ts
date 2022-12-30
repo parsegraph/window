@@ -26,8 +26,8 @@ class TestProjectedSlice extends BasicMouseController {
     this._input.setControl(this);
   }
 
-  mouseup(button: any) {
-    super.mouseup(button);
+  mouseup(button: any, downEnd: number, x: number, y: number) {
+    super.mouseup(button, downEnd, x, y);
     const clickX = this._projected.testSize().clickX();
     const clickY = this._projected.testSize().clickY();
     const clickSize = this._projected.testSize().clickSize();
