@@ -29,7 +29,7 @@
     "@typescript-eslint/parser": "^5.21.0",
     "babel-jest": "^28.0.3",
     "babel-loader": "^8.2.5",
-    "canvas": "^2.6.1",
+    "canvas": "^2.11.0",
     "chai": "^4.3.6",
     "esdoc-ecmascript-proposal-plugin": "^1.0.0",
     "eslint": "^8.14.0",
@@ -38,8 +38,8 @@
     "jest": "^28.0.3",
     "jsdom": "^19.0.0",
     "jsdom-global": "^3.0.2",
-    "parsegraph-checkglerror": "^1.5.3",
-    "parsegraph-log": "^1.7.3",
+    "parsegraph-checkglerror": "^1.5.4",
+    "parsegraph-log": "^1.7.4",
     "prettier": "^2.6.2",
     "raw-loader": "^4.0.2",
     "source-map-loader": "^3.0.1",
@@ -52,13 +52,13 @@
     "webpack-cli": "^4.9.2"
   },
   "peerDependencies": {
-    "parsegraph-checkglerror": "^1.5.3",
-    "parsegraph-log": "^1.7.3"
+    "parsegraph-checkglerror": "^1.5.4",
+    "parsegraph-log": "^1.7.4"
   },
   "dependencies": {
-    "parsegraph-input": "^2.0.4",
-    "parsegraph-method": "^1.4.22",
-    "parsegraph-projector": "^1.14.3",
-    "parsegraph-rect": "^1.5.1"
+    "parsegraph-input": "^2.0.8",
+    "parsegraph-method": "^1.4.23",
+    "parsegraph-projector": "^1.14.4",
+    "parsegraph-rect": "^1.5.2"
   }
 }
